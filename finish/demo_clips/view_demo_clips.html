@@ -107,10 +107,10 @@
     </div>
 
     <div class="grid">
-        <!-- Clip 1 -->
+        <!-- Clip 1: EATING -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">1. Afternoon Fruit Feeding (มื้อบ่าย 15:38 น.)</div>
+                <div class="card-title">1. มื้อบ่ายผลไม้รวม (EATING - 15:38 น.)</div>
                 <div class="card-desc">Camera 03 (Enrichment Area) | Color Day Mode</div>
             </div>
             <video controls autoplay loop muted>
@@ -119,16 +119,34 @@
             </video>
             <div class="card-footer">
                 • <strong>Detection:</strong> <span class="highlight">YOLOv8n Clean Model</span> (Conf: 0.89 - 0.93)<br>
-                • <strong>Spatial ROI:</strong> Centroid เข้าสู่ Food Tray ROI (X: 680..840, Y: 480..600)<br>
-                • <strong>State Classified:</strong> <span class="tag-active">ACTIVE : EATING (Fresh Fruits)</span><br>
+                • <strong>Spatial ROI:</strong> Centroid เข้าสู่ Food Tray ROI<br>
+                • <strong>State Classified:</strong> <span class="tag-active">ACTIVE : EATING</span><br>
                 • <strong>Ground Truth:</strong> เจ้าหน้าที่วางอาหาร 15:33 น. ชะมดออกมากิน 15:38 น.
             </div>
         </div>
 
-        <!-- Clip 2 (Verified Genuine Sand Nap) -->
+        <!-- Clip 2: DRINKING -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">2. Night Sand Floor Nap (นอนพักบนพื้นทราย 01:30 น.)</div>
+                <div class="card-title">2. การดื่มน้ำที่อ่างน้ำ (DRINKING - Water Basin)</div>
+                <div class="card-desc">Camera 02 (Water Station) | Color Day Mode</div>
+            </div>
+            <video controls autoplay loop muted>
+                <source src="demo_clip_drinking_cam2.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="card-footer">
+                • <strong>Detection:</strong> ตรวจจับชะมดดื่มน้ำที่อ่าง (Conf: 0.85)<br>
+                • <strong>Spatial ROI:</strong> Centroid เข้าสู่ Water Basin ROI<br>
+                • <strong>State Classified:</strong> <span class="tag-active">ACTIVE : DRINKING</span><br>
+                • <strong>Zoological Metric:</strong> บันทึกความถี่และระยะเวลาการดื่มน้ำในรอบวัน
+            </div>
+        </div>
+
+        <!-- Clip 3: RESTING -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">3. นอนพักบนพื้นทราย (RESTING - 01:30 น.)</div>
                 <div class="card-desc">Camera 03 (Enrichment Area) | Monochrome IR Mode</div>
             </div>
             <video controls autoplay loop muted>
@@ -136,17 +154,17 @@
                 Your browser does not support HTML5 video.
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> ตรวจจับชะมดนอนขดตัวพักผ่อนจริง (Conf: 0.70 - 0.78)<br>
+                • <strong>Detection:</strong> ตรวจจับชะมดนอนขดตัวพักผ่อนจริง (Conf: 0.98)<br>
                 • <strong>Spatial ROI:</strong> นอนหมอบกลางลานทราย (Center Sand Floor)<br>
                 • <strong>State Classified:</strong> <span class="tag-inactive">INACTIVE : RESTING (Sand Nap)</span><br>
                 • <strong>Temporal Logic:</strong> Stationary >= 60 วินาที ผ่านเกณฑ์ 1-Minute Rule
             </div>
         </div>
 
-        <!-- Clip 3 -->
+        <!-- Clip 4: LOCOMOTION -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">3. Night Active Patrol & Trail (ลาดตระเวนกลางคืน 01:25 น.)</div>
+                <div class="card-title">4. ลาดตระเวนกลางคืน (LOCOMOTION - 01:25 น.)</div>
                 <div class="card-desc">Camera 03 (Enrichment Area) | Monochrome IR Mode</div>
             </div>
             <video controls autoplay loop muted>

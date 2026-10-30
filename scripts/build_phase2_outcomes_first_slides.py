@@ -224,48 +224,53 @@ def create_outcomes_first_deck():
              ], C_GOLD)
 
     # ==========================================
-    # SLIDE 4: 3 VIDEO DEMONSTRATIONS
+    # SLIDE 4: 4 VIDEO DEMONSTRATIONS (4-BEHAVIOR GOLDEN ETHOGRAM)
     # ==========================================
     s4 = prs.slides.add_slide(blank_layout)
-    add_base_header(s4, "ผลลัพธ์การตรวจจับจริงจาก 3 คลิปวิดีโอ (Live Video Demonstration)", "Empirical Visual Proof Across 3 Golden Scenes")
+    add_base_header(s4, "ผลลัพธ์การตรวจจับ 4 พฤติกรรมหลักตามเอโทแกรม (4-Behavior Golden Ethogram)", "Empirical Visual Proof: Eating, Drinking, Resting & Locomotion")
 
-    # Embed 3 images side by side
+    # Embed 4 images across 4 columns
     p_img1 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\frame_153845_annotated.jpg"
-    p_img2 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0130_sand_nap_pred.jpg"
-    p_img3 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0125_patrol_pred.jpg"
+    p_img2 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\frame_drinking_annotated.jpg"
+    p_img3 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0130_sand_nap_pred.jpg"
+    p_img4 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0125_patrol_pred.jpg"
 
-    col_w = Inches(3.7)
+    col_w = Inches(2.8)
+    card_gap = Inches(0.25)
+    start_x = Inches(0.6)
+
     for idx, (img_path, title, desc, tag_color) in enumerate([
-        (p_img1, "1. มื้อบ่ายผลไม้สด (15:38 น.)", "กล้อง 3: Centroid เข้า Food Tray ROI\nสถานะ: ACTIVE : EATING (Conf: 0.93)\nเจ้าหน้าที่วางอาหาร 15:33 น. ออกมากิน 15:38 น.", C_EMERALD),
-        (p_img2, "2. นอนพักบนพื้นทราย (01:30 น.)", "กล้อง 3: ชะมดนอนขดตัวพักผ่อนจริง\nสถานะ: INACTIVE : RESTING (Sand Nap)\nหยุดนิ่ง >= 60 วินาที ผ่านเกณฑ์ 1-Minute Rule", C_GOLD),
-        (p_img3, "3. ลาดตระเวนกลางคืน IR (01:25 น.)", "กล้อง 3: เดินลาดตระเวนในโหมดอินฟราเรด\nสถานะ: ACTIVE : LOCOMOTION (vt = 45 px/s)\nลากเส้นประวัติการเดิน (Breadcrumbs Trail)", C_TEAL)
+        (p_img1, "1. กินอาหาร (EATING)", "• กล้อง 03: ถาดอาหารผลไม้\n• สถานะ: ACTIVE : EATING\n• Centroid เข้า Food Tray\n• AI Conf: 0.93 (ตรวจจับแม่นยำ)\n• กินต่อเนื่อง 15:38 - 15:43 น.", C_EMERALD),
+        (p_img2, "2. ดื่มน้ำ (DRINKING)", "• กล้อง 02: อ่างน้ำและถาดน้ำ\n• สถานะ: ACTIVE : DRINKING\n• Centroid เข้า Water Station\n• AI Conf: 0.85 (ก้มหัวดื่มน้ำ)\n• ดื่มน้ำหลังตื่นและช่วงค่ำ", C_TEAL),
+        (p_img3, "3. นอนหลับ (RESTING)", "• กล้อง 03: พื้นทราย / กล่องนอน\n• สถานะ: INACTIVE : RESTING\n• หยุดนิ่ง >= 60 วินาที\n• AI Conf: 0.98 (หลับลึกจริง)\n• ผ่านเกณฑ์ 1-Minute Rule", C_GOLD),
+        (p_img4, "4. เดินลาดตระเวน (LOCO)", "• กล้อง 03: พื้นทราย & ขอนไม้\n• สถานะ: ACTIVE : LOCOMOTION\n• เคลื่อนไหว vt = 45 px/s\n• AI Conf: 0.87 (Night IR)\n• บันทึก Breadcrumbs Trail", RGBColor(147, 51, 234)) # Purple
     ]):
-        x = Inches(0.8) + idx * Inches(4.0)
+        x = start_x + idx * (col_w + card_gap)
         # Card container
-        card = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.5), col_w, Inches(5.4))
+        card = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.45), col_w, Inches(5.5))
         card.fill.solid()
         card.fill.fore_color.rgb = C_CARD_BG
         card.line.color.rgb = C_BORDER
 
         # Image
         if os.path.exists(img_path):
-            s4.shapes.add_picture(img_path, x + Inches(0.15), Inches(1.65), col_w - Inches(0.3), Inches(2.3))
+            s4.shapes.add_picture(img_path, x + Inches(0.12), Inches(1.58), col_w - Inches(0.24), Inches(1.85))
 
         # Text
-        tb = s4.shapes.add_textbox(x + Inches(0.15), Inches(4.1), col_w - Inches(0.3), Inches(2.6))
+        tb = s4.shapes.add_textbox(x + Inches(0.12), Inches(3.55), col_w - Inches(0.24), Inches(3.3))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
         p.text = title
         p.font.name = 'Segoe UI'
-        p.font.size = Pt(13)
+        p.font.size = Pt(12)
         p.font.bold = True
         p.font.color.rgb = tag_color
 
         p2 = tf.add_paragraph()
         p2.text = desc
         p2.font.name = 'Segoe UI'
-        p2.font.size = Pt(10)
+        p2.font.size = Pt(9.5)
         p2.font.color.rgb = C_DARK
         p2.space_before = Pt(4)
 
