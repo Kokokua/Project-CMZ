@@ -1,0 +1,5 @@
+path: D:/CMU/4th/1 st/image processing/project cmz/dataset_phase2
+train: images/train
+val: images/val
+nc: 2
+names: ['civet_active', 'civet_inactive']

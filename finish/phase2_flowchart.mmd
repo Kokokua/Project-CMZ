@@ -1,0 +1,78 @@
+flowchart TD
+    %% ==========================================
+    %% 1. Ingestion Layer
+    %% ==========================================
+    subgraph INGEST["1. Video Ingestion & Downsampling"]
+        CAM3["Master Camera (Camera 03: Wide Angle View)<br/>Covering: Food Tray, Tire Bed, Under Log, Floor & Doorways"] --> DS["Temporal Subsampler<br/>(Extract at 2 FPS)"]
+        CAM2["Secondary Camera (Camera 02: Room 2)<br/>Check: Sleeping Box during morning 05:55 - 11:06"] -.-> DS
+    end
+
+    %% ==========================================
+    %% 2. AI Detection Layer
+    %% ==========================================
+    subgraph AI_DET["2. AI Detection Layer (YOLOv8 1-Class)"]
+        DS --> YD["YOLOv8n Object Detector<br/>Detect single class: 'civet'"]
+        YD --> VIZ_CHECK{"Detected civet in<br/>Master Camera (Cam 03)?"}
+    end
+
+    %% ==========================================
+    %% 3. Spatial ROIs & Kinematics Engine
+    %% ==========================================
+    subgraph VISIBLE["3. Spatial ROIs & Kinematics Engine (Cam 03)"]
+        VIZ_CHECK -- "Yes (Seen in Room 3)" --> CENTROID["Compute Bounding Box Centroid (cx, cy)<br/>and Velocity vt = delta_dist / delta_t"]
+        
+        CENTROID --> ROI_CHECK{"Check Centroid (cx, cy)<br/>against Spatial ROIs"}
+        
+        ROI_CHECK -- "Inside Food Tray ROI<br/>(X: 680..840, Y: 480..600)<br/>& Dwell >= 10s" --> BEH_EAT["Active: EATING<br/>(Afternoon feeding at 15:38)"]
+        
+        ROI_CHECK -- "Inside Tire Bed ROI<br/>(X: 820..1180, Y: 130..420)<br/>& Velocity < 20 px/s" --> BEH_TIRE["Inactive: RESTING (Tire Bed)<br/>(Midday & afternoon sleep)"]
+        
+        ROI_CHECK -- "Inside Under Log ROI<br/>(X: 1400..1750, Y: 350..650)<br/>& Velocity < 20 px/s" --> BEH_LOG["Inactive: RESTING (Under Log)<br/>(Evening rest 16:25 - 17:10)"]
+        
+        ROI_CHECK -- "On Center Sand Floor<br/>& Stationary >= 60s" --> BEH_FLOOR["Inactive: RESTING (Sand Nap)<br/>(Night naps e.g. 01:28 - 01:34)"]
+        
+        ROI_CHECK -- "Near Left Edge Doorway<br/>(X < 350, Y < 500)" --> BEH_TRANSIT["Active: TRANSIT<br/>(Transit between Room 2/3)"]
+        
+        ROI_CHECK -- "Velocity vt >= 20 px/s<br/>Moving across sand / climbing" --> BEH_WALK["Active: LOCOMOTION<br/>(Exploration & patrol)"]
+    end
+
+    %% ==========================================
+    %% 4. Occlusion & Absence Reasoning
+    %% ==========================================
+    subgraph OCCLUSION["4. Absence Reasoning (Room 2 Sleep)"]
+        VIZ_CHECK -- "No (Absent from Cam 3)" --> ABS_CHECK{"Check Time Window &<br/>Camera 02 Verification"}
+        
+        ABS_CHECK -- "Morning Sleep (05:55 - 11:06)<br/>or Night start (00:00 - 00:35)<br/>& Cam 02 Box Empty Floor" --> BEH_BOX["Inactive: RESTING (Room 2 Box)<br/>(Sleeping in Box behind plant)"]
+        
+        ABS_CHECK -- "Brief Transition (< 30s)<br/>Passing through other rooms" --> BEH_TRANSIT_OCC["Active: TRANSIT / PATROL<br/>(Corridor Room 1 / Water Room 4)"]
+    end
+
+    %% ==========================================
+    %% 5. Debounce & State Consolidation
+    %% ==========================================
+    subgraph FSM["5. Temporal Debounce & 1-Minute Rule"]
+        BEH_EAT --> ST_ACTIVE["Macro State: ACTIVE"]
+        BEH_WALK --> ST_ACTIVE
+        BEH_TRANSIT --> ST_ACTIVE
+        BEH_TRANSIT_OCC --> ST_ACTIVE
+        
+        BEH_TIRE --> DEBOUNCE{"Pass 1-Minute Rule?<br/>(Stationary >= 60s)"}
+        BEH_LOG --> DEBOUNCE
+        BEH_FLOOR --> DEBOUNCE
+        BEH_BOX --> DEBOUNCE
+        
+        DEBOUNCE -- "Yes (>= 60s)" --> ST_INACTIVE["Macro State: INACTIVE"]
+        DEBOUNCE -- "No (< 60s)" --> ST_PAUSE["Micro State: Pausing<br/>(Stationary pause during walk)"]
+        ST_PAUSE --> ST_ACTIVE
+    end
+
+    %% ==========================================
+    %% 6. Structured Outputs
+    %% ==========================================
+    subgraph OUTPUT["6. System Outputs & Zoological Reporting"]
+        ST_ACTIVE --> EVT_GEN["Event Constructor<br/>(ID, Date, Start, End, Dur, Behavior, Macro, Room, Conf)"]
+        ST_INACTIVE --> EVT_GEN
+        
+        EVT_GEN --> CSV["daily_behavior_log.csv<br/>(30 Digital Events / 24.0 Hours)"]
+        EVT_GEN --> VET["vet_activity_report.png<br/>(Donut Chart + 24h Chronogram)"]
+    end

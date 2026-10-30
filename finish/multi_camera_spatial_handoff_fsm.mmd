@@ -1,0 +1,105 @@
+flowchart TD
+    %% ==========================================
+    %% 1. Ingestion Layer
+    %% ==========================================
+    subgraph INGEST["1. Multi-Camera Synchronized Ingestion"]
+        C1["CAM 01: Room 1 (Transit Corridor)"] --> SYNC["Master Clock Synchronizer<br/>(Synchronized at 2 FPS)"]
+        C2["CAM 02: Room 2 (Dining & Sleeping Box)"] --> SYNC
+        C3["CAM 03: Room 3 (Main Enrichment Area)"] --> SYNC
+        C4["CAM 04: Room 4 (Water Station & Patrol)"] --> SYNC
+    end
+
+    %% ==========================================
+    %% 2. AI Detection Layer
+    %% ==========================================
+    subgraph AI_LAYER["2. AI Detection Layer (YOLOv8)"]
+        SYNC --> DET["YOLOv8n Single-Class Detector<br/>(Trained on 218 Frames, mAP=86.2%)"]
+        DET --> CONF_CHK{"Confidence Score<br/>>= 0.40?"}
+    end
+
+    %% ==========================================
+    %% 3. Spatial Handoff State Machine
+    %% ==========================================
+    subgraph FSM_ROUTING["3. Spatial Handoff FSM (Room Allocation)"]
+        CONF_CHK -->|Yes| ROOM_SEL{"Which Camera<br/>Detected Civet?"}
+        
+        ROOM_SEL -->|CAM 01| R1_NODE["Room 1: Transit Corridor<br/>(ตอไม้จำลอง)"]
+        ROOM_SEL -->|CAM 02| R2_NODE["Room 2: Dining & Box<br/>(ถาดอาหารเช้า & กล่องนอน)"]
+        ROOM_SEL -->|CAM 03| R3_NODE["Room 3: Main Enrichment<br/>(ล้อยาง, ขอนไม้ & ผลไม้บ่าย)"]
+        ROOM_SEL -->|CAM 04| R4_NODE["Room 4: Hydration Station<br/>(อ่างน้ำ & ลาดตระเวน)"]
+        
+        R1_NODE <-.->|Doorway Handoff| R2_NODE
+        R2_NODE <-.->|Doorway Handoff| R3_NODE
+        R3_NODE <-.->|Doorway Handoff| R4_NODE
+        R4_NODE <-.->|Doorway Handoff| R1_NODE
+    end
+
+    %% ==========================================
+    %% 4. Room-Specific Behavioral Heuristics
+    %% ==========================================
+    subgraph BEHAVIOR["4. Room-Specific Behavioral Classification"]
+        %% Room 1
+        R1_NODE --> B_TRANSIT["Active: TRANSIT<br/>(Corridor traversal 12-18s)"]
+
+        %% Room 2
+        R2_NODE --> R2_ROI{"Check Room 2 ROIs"}
+        R2_ROI -->|Food Tray ROI & Dwell >= 10s| B_EAT_MORN["Active: EATING (Morning)<br/>(11:07 - 11:45 Feeding)"]
+        R2_ROI -->|Sleeping Box ROI & Stationary >= 60s| B_SLEEP_BOX["Inactive: RESTING (Sleeping Box)<br/>(Morning deep sleep 05:55 - 11:06)"]
+        R2_ROI -->|Ramp ROI & Stationary >= 60s| B_REST_RAMP["Inactive: RESTING (Ramp Rest)<br/>(Post-feeding rest 11:45 - 12:05)"]
+        R2_ROI -->|Velocity vt >= 20 px/s| B_WALK_R2["Active: LOCOMOTION"]
+
+        %% Room 3
+        R3_NODE --> R3_ROI{"Check Room 3 ROIs"}
+        R3_ROI -->|Food Tray ROI & Dwell >= 10s| B_EAT_AFT["Active: EATING (Afternoon)<br/>(Fresh fruit feeding at 15:38)"]
+        R3_ROI -->|Tire Bed ROI & Stationary >= 60s| B_SLEEP_TIRE["Inactive: RESTING (Tire Bed)<br/>(Afternoon sleep 12:07 - 15:38)"]
+        R3_ROI -->|Under Log ROI & Stationary >= 60s| B_REST_LOG["Inactive: RESTING (Under Log)<br/>(Right fence rest 16:25 - 17:10)"]
+        R3_ROI -->|Sand Floor & Stationary >= 60s| B_NAP_SAND["Inactive: RESTING (Sand Nap)<br/>(Short night naps e.g. 01:28)"]
+        R3_ROI -->|Velocity vt >= 20 px/s| B_WALK_R3["Active: LOCOMOTION<br/>(Climbing log & patrolling)"]
+
+        %% Room 4
+        R4_NODE --> R4_ROI{"Check Room 4 ROIs"}
+        R4_ROI -->|Water Basin ROI & Dwell >= 15s| B_DRINK["Active: DRINKING<br/>(Hydration at 19:40)"]
+        R4_ROI -->|Velocity vt >= 20 px/s| B_WALK_R4["Active: LOCOMOTION<br/>(Perimeter fence patrol)"]
+    end
+
+    %% ==========================================
+    %% 5. Occlusion & Absence Reasoning
+    %% ==========================================
+    subgraph OCCLUSION["5. Absence Reasoning (Occluded State)"]
+        CONF_CHK -->|No Civet Detected in Any Cam| OCC_CHK{"Check Last Known State<br/>& Time Window"}
+        OCC_CHK -->|Last entered Room 2 Box & 05:55 - 11:06| B_SLEEP_BOX
+        OCC_CHK -->|Transient loss < 10s & Passing doorway| B_TRANSIT
+    end
+
+    %% ==========================================
+    %% 6. Debounce & Consolidation
+    %% ==========================================
+    subgraph FSM_FILTER["6. Temporal Debounce (1-Minute Rule)"]
+        B_TRANSIT --> ST_ACT["Macro State: ACTIVE"]
+        B_EAT_MORN --> ST_ACT
+        B_EAT_AFT --> ST_ACT
+        B_WALK_R2 --> ST_ACT
+        B_WALK_R3 --> ST_ACT
+        B_DRINK --> ST_ACT
+        B_WALK_R4 --> ST_ACT
+
+        B_SLEEP_BOX --> DEB{"Pass 1-Minute Rule?<br/>(Stationary >= 60s)"}
+        B_REST_RAMP --> DEB
+        B_SLEEP_TIRE --> DEB
+        B_REST_LOG --> DEB
+        B_NAP_SAND --> DEB
+
+        DEB -->|Yes| ST_INACT["Macro State: INACTIVE"]
+        DEB -->|No < 60s| ST_ACT
+    end
+
+    %% ==========================================
+    %% 7. Outputs
+    %% ==========================================
+    subgraph OUTPUTS["7. Standardized Outputs"]
+        ST_ACT --> EVT["Event Constructor<br/>(ID, Date, Start, End, Dur, Behavior, Macro, Room, Conf)"]
+        ST_INACT --> EVT
+        EVT --> CSV_OUT["daily_behavior_log.csv<br/>(30 Digital Events / 24.0 Hours)"]
+        EVT --> VET_OUT["vet_activity_report.png<br/>(Activity Budget & 24h Chronogram)"]
+        EVT --> MATRIX_OUT["Room Occupancy &<br/>Spatial Transition Matrix"]
+    end

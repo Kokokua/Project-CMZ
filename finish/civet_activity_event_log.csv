@@ -1,0 +1,8 @@
+﻿event_id,camera_id,start_time,end_time,behavior_state,sub_behavior,confidence_score,duration_seconds,duration_formatted,enclosure_zone,evaluation_rule
+EVT-0001,Camera 04,2026-04-05 11:07:05 (+00m),2026-04-05 11:07:05 (+60m),ACTIVE,Feeding / Foraging,0.895,3600.0,60m 0s,Food Tray & Lower Enclosure,1-Minute Zoological Persistence Verified
+EVT-0002,Camera 03,2026-04-05 00:00:00 (+00m00s),2026-04-05 00:00:00 (+50m30s),ACTIVE,Locomotion / Exploration,0.976,3030.0,50m 30s,Vertical Climbing Structure & Branches,1-Minute Zoological Persistence Verified
+EVT-0003,Camera 03,2026-04-05 00:00:00 (+50m30s),2026-04-05 00:00:00 (+51m30s),INACTIVE,Resting / Sleeping,0.911,60.0,1m 0s,Vertical Climbing Structure & Branches,1-Minute Zoological Persistence Verified
+EVT-0004,Camera 03,2026-04-05 00:00:00 (+51m30s),2026-04-05 00:00:00 (+54m45s),ACTIVE,Locomotion / Exploration,0.925,195.0,3m 15s,Vertical Climbing Structure & Branches,1-Minute Zoological Persistence Verified
+EVT-0005,Camera 03,2026-04-05 00:00:00 (+54m45s),2026-04-05 00:00:00 (+55m45s),INACTIVE,Resting / Sleeping,0.951,60.0,1m 0s,Vertical Climbing Structure & Branches,1-Minute Zoological Persistence Verified
+EVT-0006,Camera 03,2026-04-05 00:00:00 (+55m),2026-04-05 00:00:00 (+60m),ACTIVE,Locomotion / Exploration,0.931,255.0,4m 15s,Vertical Climbing Structure & Branches,1-Minute Zoological Persistence Verified
+EVT-0007,Camera 01,2026-04-05 06:13:38 (+00m),2026-04-05 06:13:38 (+60m),INACTIVE,Resting / Sleeping,0.939,3600.0,60m 0s,Tire Bed Shelter (Nesting),1-Minute Zoological Persistence Verified

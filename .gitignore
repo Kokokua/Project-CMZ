@@ -1,0 +1,44 @@
+# Python environment
+.venv/
+env/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints
+
+# Large Video Datasets & CCTV Footage (GitHub strictly rejects files > 100MB)
+dataset/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.zip
+
+# Intermediate frame inspections and large image dumps
+pic/inspections/
+pic/camera_samples/
+pic/resting_samples/
+pic/debug_frames/
+pic/civet_cam2_box_inspection/
+pic/sleeping_evidence/
+
+
+# Heavy YOLO Training runs & Cache
+runs/
+*.cache
+
+# Heavy pretrained weights (>50MB) - keep repo lightweight
+models/*.pt
+!models/yolov8n.pt
+**/last.pt
+
+
+# OS & Editor generated files
+~$*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
