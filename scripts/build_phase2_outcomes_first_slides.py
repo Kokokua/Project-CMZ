@@ -470,8 +470,16 @@ def create_outcomes_first_deck():
                  "  บันทึกรายงานผลการ Audit อิสระโดยละเอียด 100%"
              ], C_GOLD)
 
-    prs.save(out_pptx_clean)
-    prs.save(out_pptx_master)
+    try:
+        prs.save(out_pptx_clean)
+    except PermissionError:
+        print('Warning: Phase 2 PPTX is currently open in PowerPoint. Saving to Phase 2 Updated...')
+        prs.save(os.path.join(project_root, 'Image Processing Presentation Phase 2_updated.pptx'))
+    try:
+        prs.save(out_pptx_master)
+    except PermissionError:
+        print('Warning: Master PPTX is currently open. Saving to Master Updated...')
+        prs.save(os.path.join(project_root, 'Image Processing Presentation_updated.pptx'))
     print(f"Successfully generated 9-Slide Outcomes-First Deck at:")
     print(f"  1. {out_pptx_clean}")
     print(f"  2. {out_pptx_master}")
