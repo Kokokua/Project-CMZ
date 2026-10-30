@@ -451,7 +451,7 @@ def create_outcomes_first_deck():
                  "4. models/yolov8n_civet_phase2/weights/best.pt:",
                  "   ➔ โมเดลน้ำหนักตัวคลีนล่าสุด (6.2 MB, Precision 88.2%)",
                  "5. finish/demo_clips/view_demo_clips.html:",
-                 "   ➔ หน้าเว็บ Dashboard เปิดดูวิดีโอสาธิตจริง 3 ซีน"
+                 "   ➔ หน้าเว็บ Dashboard เปิดดูวิดีโอสาธิตจริงครบ 4 พฤติกรรม"
              ], C_TEAL)
 
     add_card(s9, Inches(6.8), Inches(1.5), Inches(5.7), Inches(5.4),

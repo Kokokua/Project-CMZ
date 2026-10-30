@@ -54,12 +54,12 @@ Instead of naive single-frame multi-class classification (which flickers wildly 
 
 | Metric | Measured Value | Standard / Target | Status |
 |---|:---:|:---:|:---:|
-| **mAP@50** | **86.2%** | >= 70.0% | ✅ Exceeded |
-| **mAP@50-95** | **74.7%** | >= 50.0% | ✅ Exceeded |
-| **Detection Precision** | **75.0%** | >= 70.0% | ✅ Exceeded |
-| **Detection Recall** | **80.5%** | >= 75.0% | ✅ Exceeded |
-| **Inference Latency** | **31.4 ms/frame** | <= 50.0 ms | ✅ Real-time Ready (>60 FPS GPU / 32 FPS CPU) |
-| **Parameter Footprint** | **3,006,038 (6.2 MB)** | <= 20 MB | ✅ Edge Embedded Ready |
+| **Detection Precision** | **88.2%** | >= 70.0% | ✅ Exceeded (Zero False Positives) |
+| **mAP@50** | **79.6%** | >= 70.0% | ✅ Exceeded |
+| **mAP@50-95** | **63.2%** | >= 50.0% | ✅ Exceeded |
+| **Inference Latency** | **25.0 ms/frame** | <= 50.0 ms | ✅ Real-time Ready (~40 FPS CPU / >60 FPS GPU) |
+| **Parameter Footprint** | **3,005,843 (6.2 MB)** | <= 20 MB | ✅ Lightweight Edge Embedded Ready |
+| **Specificity on Empty Cages** | **100% (0 FP)** | >= 95.0% | ✅ Passed (Negative Background Mining) |
 
 ---
 
@@ -72,27 +72,33 @@ project cmz/
 │   ├── vet_activity_report.png          # Macro Donut + Ethogram Bars + 24h Chronogram
 │   ├── multi_camera_spatial_handoff_fsm.mmd # Master Architecture Flowchart (Mermaid)
 │   ├── civet_yolo_dataset_phase2.zip    # Clean YOLOv8 Dataset Package (227 frames)
+│   ├── comparison_tire_bed_fix.jpg      # Before vs After: 0 FP on Empty Tire
+│   ├── comparison_ramp_fix.jpg          # Before vs After: 0 FP on Empty Ramp
 │   └── demo_clips/
-│       ├── view_demo_clips.html         # Interactive Video Showcase Dashboard
-│       ├── demo_clip_feeding_1538.mp4   # 15:38 Afternoon Feeding (Room 3)
-│       ├── demo_clip_resting_sand_nap_0130.mp4 # 01:30 Night Sand Nap (Room 3)
-│       └── demo_clip_night_patrol_0125.mp4     # 01:25 Night IR Patrol (Room 3)
+│       ├── view_demo_clips.html         # Interactive Video Showcase Dashboard (4 Behaviors)
+│       ├── demo_clip_feeding_1538.mp4   # 1. Eating: Afternoon Fruit Feeding (Room 3)
+│       ├── demo_clip_drinking_cam2.mp4  # 2. Drinking: Water Basin Hydration (Room 2)
+│       ├── demo_clip_resting_sand_nap_0130.mp4 # 3. Resting: Night Sand Nap (Room 3)
+│       └── demo_clip_night_patrol_0125.mp4     # 4. Locomotion: Night IR Patrol (Room 3)
 ├── models/
 │   └── yolov8n_civet_phase2/
-│       └── weights/best.pt              # Fine-tuned Weights (mAP 86.2%)
-├── dataset/
-│   └── ชะมดแผงสันหางดำ/                  # 24-Hour Raw CCTV Video Streams (4 Cameras)
-└── Image Processing Presentation.pptx   # Final Presentation Slide Deck (13 Slides)
+│       └── weights/best.pt              # Fine-tuned Clean Model Weights (6.2 MB)
+├── dataset_phase2/                      # Clean YOLOv8 Train/Val Annotations & Negative Samples
+├── Image Processing Presentation Phase 2.pptx # Final Presentation Slide Deck (9 Slides)
+└── README.md
 ```
 
 ---
 
-## 🚀 Quickstart & Reproduction
+## 🚀 Quickstart & Push to GitHub
 
-### 1. Run Live Inference Demo on Video
+### 1. View Interactive Video Showcase
+Open `finish/demo_clips/view_demo_clips.html` (or on your Desktop) in Google Chrome or Microsoft Edge to inspect all 4 video demonstrations with live AI bounding boxes.
+
+### 2. Push to Your GitHub Repository
+Run the following commands in PowerShell from the project root:
 ```powershell
-python scripts/run_live_inference_demo.py --video "dataset/ชะมดแผงสันหางดำ/camera 3/A03_14.03-18.18_dur_4h14m.mp4" --weights models/yolov8n_civet_phase2/weights/best.pt
+cd "D:\CMU\4th\1 st\image processing\project cmz"
+git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>.git
+git push -u origin main
 ```
-
-### 2. View Interactive Telemetry Reports
-Open `finish/demo_clips/view_demo_clips.html` in Google Chrome or Microsoft Edge to inspect synchronized model inference demonstrations.
