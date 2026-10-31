@@ -82,6 +82,7 @@ scripts/*
 !scripts/train_multiclass_behavior_yolo.py
 !scripts/render_all_multiclass_demo_clips.py
 !scripts/update_presentation_multiclass.py
+!scripts/run_auto_train_audit_loop.py
 
 # Root files
 *.pptx

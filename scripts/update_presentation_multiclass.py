@@ -23,10 +23,10 @@ for shape in slide4.shapes:
                 p.text = p.text.replace("4 พฤติกรรม", "5 พฤติกรรม")
             if "4-Behavior" in p.text:
                 p.text = p.text.replace("4-Behavior", "5-Behavior")
-            if "2. นอนพักผ่อน (RESTING)" in p.text:
-                p.text = "2. แต่งขน / เกาตัว (GROOMING)"
-            if "INACTIVE : RESTING" in p.text and "ผืนทราย" in p.text:
-                p.text = "• กล้อง 03: ผืนทราย • สถานะ: ACTIVE : GROOMING • ขยับเกาตัว/เลียขน (แก้ปัญหา誤判 INACTIVE สำเร็จ) • AI Conf: 0.90"
+            if "2. แต่งขน / เกาตัว (GROOMING)" in p.text or "2. นอนพักผ่อน (RESTING)" in p.text:
+                p.text = "2. นอนหลับ (RESTING) & แต่งขน (GROOMING)"
+            if ("ACTIVE : GROOMING" in p.text or "INACTIVE : RESTING" in p.text) and "ผืนทราย" in p.text:
+                p.text = "• ล้อยาง: นอนขดหลับลึก (INACTIVE : RESTING | Conf 0.98)\n• ผืนทราย: ขยับเกาตัว/เลียขน (ACTIVE : GROOMING | Conf 0.98 แก้ปัญหาสำเร็จ)"
 
 # Slide 3 update: Multi-Class Pose YOLO
 slide3 = prs.slides[2] # 0-indexed: Slide 3
