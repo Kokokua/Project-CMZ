@@ -1,6 +1,0 @@
-metric_dimension,ground_truth_target,other_session_yolov8n,this_session_roboflow_rfdetr,outcome_interpretation
-Total 24h Monitored Duration,21.38 hours (100%),11.03 hours (51.6%),13.81 hours (64.6%),Roboflow maintains 100% continuous surveillance with zero lost tracking intervals.
-INACTIVE State Coverage (Resting & Sleeping),8.80 hours (41.2%),8.80 hours (100.0% coverage),8.80 hours (100.0% coverage),Other session suffered dropouts during resting; Roboflow achieved 100% coverage.
-ACTIVE State Coverage (Locomotion/Eating/Drinking),12.58 hours (58.8%),2.23 hours (17.7% coverage),5.01 hours (39.8% coverage),"Both detect active movements, but Roboflow has higher boundary confidence."
-Mean Detection Confidence Score,1.000 (Ground Truth),0.737 (Conf 0.40 - 0.78),0.875 (Conf 0.94 - 1.00),"Roboflow confidence is significantly higher (+28%), preventing false dropouts."
-Behavioral Classification Accuracy,100.0% Ethogram Match,81.8% (Jitter on night nap / log),100.0% (Clean match across 11 segments),Roboflow perfectly matches the zoological ethogram without threshold hacks.

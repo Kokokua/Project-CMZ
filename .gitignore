@@ -7,7 +7,7 @@ __pycache__/
 *$py.class
 *.ipynb_checkpoints
 
-# Large Video Datasets & CCTV Footage (GitHub strictly rejects files > 100MB)
+# Large Datasets & Raw CCTV Footage
 dataset/
 *.mp4
 *.avi
@@ -17,36 +17,77 @@ dataset/
 *.flv
 *.zip
 
-# Intermediate frame inspections, temporary dumps & scratch scripts
+# Intermediate frame inspections, temporary dumps & scratch
 scratch/
-pic/inspections/
-pic/camera_samples/
-pic/resting_samples/
-pic/debug_frames/
-pic/civet_cam2_box_inspection/
-pic/sleeping_evidence/
+pic/
+recheck/
+presentations/
 model form robo/
 p1_slides/
 p2_slides/
 p2_rethemed_slides/
 
-# Heavy YOLO Training runs & Cache
+# Dataset: keep only data.yaml
+dataset_phase2/*
+!dataset_phase2/data.yaml
+
+# Models: keep only trained clean best.pt weights
 runs/
 *.cache
-
-# Heavy pretrained weights (>50MB) - keep repo lightweight, keep only clean best.pt
+models/**/train_batch*.jpg
+models/**/val_batch*.jpg
+models/**/labels*.jpg
+models/**/confusion_matrix*.png
+models/**/Box*.png
+models/**/results.png
+models/**/results.csv
+models/**/args.yaml
+models/phase2/
 models/*.pt
 !models/yolov8n.pt
 !models/yolov8n_civet_phase2/weights/best.pt
 **/last.pt
 
-# Temporary PPTX backups and locks
+# Finish: keep only final presentation, 24h CSV log, chart, and html viewer
+finish/*
+!finish/Image_Processing_Presentation_Phase2_Final.pptx
+!finish/daily_behavior_log.csv
+!finish/vet_activity_report.png
+!finish/comparison_ramp_fix.jpg
+!finish/comparison_tire_bed_fix.jpg
+!finish/demo_clips/
+finish/demo_clips/*
+!finish/demo_clips/view_demo_clips.html
+
+# Scripts: keep only essential model pipeline scripts
+scripts/*
+!scripts/train_yolov8_civet.py
+!scripts/phase2_curate_dataset.py
+!scripts/prepare_yolo_splits.py
+!scripts/run_24h_behavior_inference.py
+!scripts/generate_24h_behavior_log.py
+!scripts/generate_vet_report_chart.py
+!scripts/benchmark_model_comparison.py
+!scripts/qa_audit_runner.py
+!scripts/render_all_perfect_verified_clips.py
+!scripts/render_drinking_cam4_clip.py
+!scripts/render_multi_camera_handoff_clip.py
+!scripts/build_html_dashboard.py
+
+# Root files
+*.pptx
+!finish/Image_Processing_Presentation_Phase2_Final.pptx
+Untitled Diagram.jpg
+scratch_check_*.jpg
+
+# Documents: ignore Canva/speaker notes and docx files
+docs/CANVA_*
+docs/22_*
+*.docx
+
+# OS & Editor generated files
 ~$*
-*.backup.pptx
-test_bg.*
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-scratch_check_*.jpg
-scripts/test_gradient.py

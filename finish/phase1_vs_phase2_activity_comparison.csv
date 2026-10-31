@@ -1,5 +1,0 @@
-clip_name,behavior,expected_state,frames_sampled,phase1_motion_detection_rate,phase2_deep_learning_detection_rate,phase2_avg_confidence,phase1_flaw_summary,phase2_advantage_summary
-Sleeping (Day Shelf Rest),RESTING,INACTIVE,40,2.5,100.0,0.971,Fails when motionless (0% detection during deep sleep),100% continuous tracking with high confidence (0.95+) even while motionless
-Sleeping (Night IR Sand Nap),RESTING,INACTIVE,40,55.0,100.0,0.966,Fails when motionless (0% detection during deep sleep),100% continuous tracking with high confidence (0.95+) even while motionless
-Eating (Day Fruit Tray),EATING,ACTIVE,40,97.5,100.0,0.674,"Detects raw pixel motion only, no species semantics",Specifically identifies civet (0.67 conf) + EATING state
-Walking (Night IR Locomotion),LOCOMOTION,ACTIVE,40,50.0,57.5,0.526,"Detects raw pixel motion only, no species semantics",Specifically identifies civet (0.53 conf) + LOCOMOTION state

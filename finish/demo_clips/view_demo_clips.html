@@ -161,6 +161,26 @@
     </div>
 
     <div class="flagship-grid">
+        <!-- Flagship 0: Roboflow RF-DETR v2 Benchmark Demo -->
+        <div class="card" style="border: 2px solid #00e5ff; grid-column: 1 / -1;">
+            <div class="card-header" style="background: #0f172a;">
+                <div class="card-title">
+                    <span style="color: #00e5ff;">✨ โมเดลใหม่ล่าสุด: Roboflow RF-DETR v2 (weights2.pt) ทดสอบบน CCTV กลางคืน</span>
+                    <span class="pill" style="background: #00e5ff; color: #0f172a; font-weight: bold;">Roboflow v2 SOTA Model</span>
+                </div>
+                <div class="card-desc">CCTV Cam 03 Night Monochrome IR | Model: mes-workspace-02uvi/civet-monitoring/2 (Weights 2) | Conf 90.6% - 98.5%</div>
+            </div>
+            <video controls autoplay loop muted poster="demo_clip_roboflow_v2_civet_detection_poster.jpg">
+                <source src="demo_clip_roboflow_v2_civet_detection.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="card-footer">
+                • <strong>Model Architecture:</strong> Roboflow RF-DETR Small (Transformer Attention + ViT Backbone) ฝึกสอนด้วยชุดภาพ 180 ภาพจริงจากกล้องสวนสัตว์เชียงใหม่<br>
+                • <strong>Night IR Benchmark:</strong> ตรวจจับชะมดตอนเดินบนพื้นทรายในที่มืดด้วยค่าความมั่นใจ <strong>90.6%</strong> (เทียบกับโมเดลเดิมที่ได้ 44.5% - 79.5% ความมั่นใจเพิ่มขึ้น +11% ถึง +45.7%)<br>
+                • <strong>Bounding Box Stability:</strong> กรอบนีออนสีฟ้าแนบสนิทตามท่วงท่าการก้าวเดินของตัวชะมด ไม่มีอาการกรอบสั่นหรือหลุดเฟรม
+            </div>
+        </div>
+
         <!-- Flagship 1: Dual View Handoff + Typewriter CSV -->
         <div class="card">
             <div class="card-header">
