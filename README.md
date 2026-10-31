@@ -99,6 +99,6 @@ Open `finish/demo_clips/view_demo_clips.html` (or on your Desktop) in Google Chr
 Run the following commands in PowerShell from the project root:
 ```powershell
 cd "D:\CMU\4th\1 st\image processing\project cmz"
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>.git
+git remote add origin https://github.com/Kokokua/Project-CMZ.git
 git push -u origin main
 ```

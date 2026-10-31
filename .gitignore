@@ -17,28 +17,36 @@ dataset/
 *.flv
 *.zip
 
-# Intermediate frame inspections and large image dumps
+# Intermediate frame inspections, temporary dumps & scratch scripts
+scratch/
 pic/inspections/
 pic/camera_samples/
 pic/resting_samples/
 pic/debug_frames/
 pic/civet_cam2_box_inspection/
 pic/sleeping_evidence/
-
+model form robo/
+p1_slides/
+p2_slides/
+p2_rethemed_slides/
 
 # Heavy YOLO Training runs & Cache
 runs/
 *.cache
 
-# Heavy pretrained weights (>50MB) - keep repo lightweight
+# Heavy pretrained weights (>50MB) - keep repo lightweight, keep only clean best.pt
 models/*.pt
 !models/yolov8n.pt
+!models/yolov8n_civet_phase2/weights/best.pt
 **/last.pt
 
-
-# OS & Editor generated files
+# Temporary PPTX backups and locks
 ~$*
+*.backup.pptx
+test_bg.*
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+scratch_check_*.jpg
+scripts/test_gradient.py

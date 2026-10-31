@@ -227,23 +227,23 @@ def create_outcomes_first_deck():
     # SLIDE 4: 4 VIDEO DEMONSTRATIONS (4-BEHAVIOR GOLDEN ETHOGRAM)
     # ==========================================
     s4 = prs.slides.add_slide(blank_layout)
-    add_base_header(s4, "ผลลัพธ์การตรวจจับ 4 พฤติกรรมหลักตามเอโทแกรม (4-Behavior Golden Ethogram)", "Empirical Visual Proof: Eating, Drinking, Resting & Locomotion")
+    add_base_header(s4, "ผลลัพธ์การตรวจจับ 4 พฤติกรรมหลักตามเอโทแกรม (4-Behavior Golden Ethogram)", "Empirical Visual Proof: 100% Sourced from dataset/ชะมดแผงสันหางดำ")
 
-    # Embed 4 images across 4 columns
-    p_img1 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\frame_153845_annotated.jpg"
-    p_img2 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\frame_drinking_annotated.jpg"
-    p_img3 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0130_sand_nap_pred.jpg"
-    p_img4 = r"C:\Users\ASUS\.gemini\antigravity-cli\brain\ea6f126b-0636-4ec3-8397-957f0b099627\scratch\cam3_0125_patrol_pred.jpg"
+    # Embed 4 images across 4 columns (100% CCTV footage)
+    p_img1 = os.path.join(project_root, "scratch", "frame_153845_annotated.jpg")
+    p_img2 = os.path.join(project_root, "scratch", "cam3_0130_sand_nap_pred.jpg")
+    p_img3 = os.path.join(project_root, "scratch", "cam3_0127_patrol_pred.jpg")
+    p_img4 = os.path.join(project_root, "scratch", "cam3_153822_approach_pred.jpg")
 
     col_w = Inches(2.8)
     card_gap = Inches(0.25)
     start_x = Inches(0.6)
 
     for idx, (img_path, title, desc, tag_color) in enumerate([
-        (p_img1, "1. กินอาหาร (EATING)", "• กล้อง 03: ถาดอาหารผลไม้\n• สถานะ: ACTIVE : EATING\n• Centroid เข้า Food Tray\n• AI Conf: 0.93 (ตรวจจับแม่นยำ)\n• กินต่อเนื่อง 15:38 - 15:43 น.", C_EMERALD),
-        (p_img2, "2. ดื่มน้ำ (DRINKING)", "• กล้อง 02: อ่างน้ำและถาดน้ำ\n• สถานะ: ACTIVE : DRINKING\n• Centroid เข้า Water Station\n• AI Conf: 0.85 (ก้มหัวดื่มน้ำ)\n• ดื่มน้ำหลังตื่นและช่วงค่ำ", C_TEAL),
-        (p_img3, "3. นอนหลับ (RESTING)", "• กล้อง 03: พื้นทราย / กล่องนอน\n• สถานะ: INACTIVE : RESTING\n• หยุดนิ่ง >= 60 วินาที\n• AI Conf: 0.98 (หลับลึกจริง)\n• ผ่านเกณฑ์ 1-Minute Rule", C_GOLD),
-        (p_img4, "4. เดินลาดตระเวน (LOCO)", "• กล้อง 03: พื้นทราย & ขอนไม้\n• สถานะ: ACTIVE : LOCOMOTION\n• เคลื่อนไหว vt = 45 px/s\n• AI Conf: 0.87 (Night IR)\n• บันทึก Breadcrumbs Trail", RGBColor(147, 51, 234)) # Purple
+        (p_img1, "1. กินอาหาร (EATING)", "• กล้อง 03: ถาดอาหารผลไม้\n• สถานะ: ACTIVE : EATING\n• Centroid เข้า Food Tray\n• AI Conf: 0.93 (ตรวจจับแม่นยำ)\n• ฟุตเทจ CCTV: 15:38:45 น.", C_EMERALD),
+        (p_img2, "2. นอนพักผ่อน (RESTING)", "• กล้อง 03: ผืนทรายกลางห้อง\n• สถานะ: INACTIVE : RESTING\n• หยุดนิ่ง >= 60 วินาที\n• AI Conf: 0.99 (นอนขดบนทราย)\n• ฟุตเทจ CCTV: 01:30:15 น.", C_GOLD),
+        (p_img3, "3. ลาดตระเวนกลางคืน (LOCO)", "• กล้อง 03: พื้นทราย & แนวกรง\n• สถานะ: ACTIVE : LOCOMOTION\n• เคลื่อนไหว vt = 45 px/s\n• AI Conf: 0.84 (Monochrome IR)\n• ฟุตเทจ CCTV: 01:27:00 น.", RGBColor(147, 51, 234)),
+        (p_img4, "4. สำรวจกลางวัน (LOCO)", "• กล้อง 03: ลานกิจกรรมกลางวัน\n• สถานะ: ACTIVE : LOCOMOTION\n• เคลื่อนไหว vt = 52 px/s\n• AI Conf: 0.89 (Color Day Mode)\n• ฟุตเทจ CCTV: 15:38:25 น.", C_TEAL)
     ]):
         x = start_x + idx * (col_w + card_gap)
         # Card container
@@ -275,7 +275,68 @@ def create_outcomes_first_deck():
         p2.space_before = Pt(4)
 
     # ==========================================
-    # SLIDE 5: 24-HOUR BEHAVIORAL EVENT LOG (CSV TABLE)
+    # SLIDE 5: MULTI-CAMERA SPATIAL HANDOFF & SHELTER SLEEP
+    # ==========================================
+    s5_multi = prs.slides.add_slide(blank_layout)
+    add_base_header(s5_multi, "การสลับกล้องติดตามข้ามห้อง & การตรวจจับการนอนในที่หลบภัย (Multi-Camera Spatial Handoff & Shelter Sleep)", "Autonomous Multi-Camera Orchestration & Synchronized FSM")
+
+    p_handoff_img = os.path.join(project_root, "finish", "demo_clips", "demo_clip_multi_camera_handoff_with_live_csv_poster.jpg")
+    p_shelter_img = os.path.join(project_root, "finish", "demo_clips", "demo_clip_shelter_sleep_sync_poster.jpg")
+
+    # Card 1: Multi-Cam Handoff + Live CSV (Left)
+    card1 = s5_multi.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.5), Inches(5.6), Inches(5.4))
+    card1.fill.solid()
+    card1.fill.fore_color.rgb = C_CARD_BG
+    card1.line.color.rgb = C_BORDER
+
+    if os.path.exists(p_handoff_img):
+        s5_multi.shapes.add_picture(p_handoff_img, Inches(0.95), Inches(1.65), Inches(5.3), Inches(2.35))
+
+    tb1 = s5_multi.shapes.add_textbox(Inches(0.95), Inches(4.1), Inches(5.3), Inches(2.7))
+    tf1 = tb1.text_frame
+    tf1.word_wrap = True
+    p = tf1.paragraphs[0]
+    p.text = "1. สลับกล้องอัตโนมัติ & พิมพ์บันทึก CSV สด (04:39 Unified Sync)"
+    p.font.name = 'Segoe UI'
+    p.font.size = Pt(12)
+    p.font.bold = True
+    p.font.color.rgb = C_GOLD
+
+    p2 = tf1.add_paragraph()
+    p2.text = "• Side-by-Side Dual View: ติดตามชะมดตื่นนอนห้อง 2 ➔ เดินลง Ramp ➔ สลับเข้าห้อง 3\n• Auto-Director Switcher: สลับหน้าจออัตโนมัติเมื่อตรวจพบการเดินข้ามประตู (Doorway)\n• Live Typewriter CSV Stream: หน้าจอด้านขวาจำลองการพิมพ์ event ทีละตัวอักษร\n• Real-Time Edge Logging: บันทึกข้อมูลลง daily_behavior_log.csv ต่อเนื่องไร้ดีเลย์"
+    p2.font.name = 'Segoe UI'
+    p2.font.size = Pt(10)
+    p2.font.color.rgb = C_DARK
+    p2.space_before = Pt(4)
+
+    # Card 2: Shelter Sleeping & 4-Cam Sync (Right)
+    card2 = s5_multi.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.5), Inches(5.7), Inches(5.4))
+    card2.fill.solid()
+    card2.fill.fore_color.rgb = C_CARD_BG
+    card2.line.color.rgb = C_BORDER
+
+    if os.path.exists(p_shelter_img):
+        s5_multi.shapes.add_picture(p_shelter_img, Inches(6.95), Inches(1.65), Inches(5.4), Inches(2.35))
+
+    tb2 = s5_multi.shapes.add_textbox(Inches(6.95), Inches(4.1), Inches(5.4), Inches(2.7))
+    tf2 = tb2.text_frame
+    tf2.word_wrap = True
+    p = tf2.paragraphs[0]
+    p.text = "2. การนอนในที่หลบภัย & ตรวจสอบ 4 กล้องเวลาเดียวกัน (04:39 Sync)"
+    p.font.name = 'Segoe UI'
+    p.font.size = Pt(12)
+    p.font.bold = True
+    p.font.color.rgb = C_EMERALD
+
+    p2 = tf2.add_paragraph()
+    p2.text = "• กล้อง 3 เห็นชัดเจน 100%: บันทึกจังหวะชะมดเดินมุ่งหน้าเข้าสู่ประตูกล่องนอนห้อง 2\n• กล้อง 2 บันทึกการมุดเข้าที่หลบภัย: ก้าวขึ้น Ramp และมุดเข้าไปนอนในกล่องนอนมืด\n• Synchronized 4-Cam Verification: ตรวจสอบเวลา 05:00 น. พบห้อง 1, 3, 4 ว่างเปล่า\n• Zoological FSM Logic: เมื่อห้องอื่นไม่มีตัว ยืนยันสถานะ RESTING ในที่หลบภัยแม่นยำ"
+    p2.font.name = 'Segoe UI'
+    p2.font.size = Pt(10)
+    p2.font.color.rgb = C_DARK
+    p2.space_before = Pt(4)
+
+    # ==========================================
+    # SLIDE 6: 24-HOUR BEHAVIORAL EVENT LOG (CSV TABLE)
     # ==========================================
     s5 = prs.slides.add_slide(blank_layout)
     add_base_header(s5, "ผลลัพธ์สรุปสถิติ 24 ชั่วโมง: ตารางบันทึกพฤติกรรม (Daily Behavior Log CSV)", "24-Hour Digital Event Table & Time Budget")
