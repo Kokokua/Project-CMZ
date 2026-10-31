@@ -30,6 +30,8 @@ p2_rethemed_slides/
 # Dataset: keep only data.yaml
 dataset_phase2/*
 !dataset_phase2/data.yaml
+dataset_multiclass/*
+!dataset_multiclass/data_multiclass.yaml
 
 # Models: keep only trained clean best.pt weights
 runs/
@@ -46,6 +48,9 @@ models/phase2/
 models/*.pt
 !models/yolov8n.pt
 !models/yolov8n_civet_phase2/weights/best.pt
+models/yolov8n_civet_multiclass/*
+!models/yolov8n_civet_multiclass/weights/
+!models/yolov8n_civet_multiclass/weights/best.pt
 **/last.pt
 
 # Finish: keep only final presentation, 24h CSV log, chart, and html viewer
@@ -73,6 +78,10 @@ scripts/*
 !scripts/render_drinking_cam4_clip.py
 !scripts/render_multi_camera_handoff_clip.py
 !scripts/build_html_dashboard.py
+!scripts/create_multiclass_behavior_dataset.py
+!scripts/train_multiclass_behavior_yolo.py
+!scripts/render_all_multiclass_demo_clips.py
+!scripts/update_presentation_multiclass.py
 
 # Root files
 *.pptx

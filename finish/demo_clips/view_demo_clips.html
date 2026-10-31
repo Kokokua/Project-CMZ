@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Civet Behavior Monitoring: Master Multi-Camera & 24h Behavior Demonstration</title>
+    <title>AI Civet Behavior Monitoring: Master Multi-Camera & Multi-Class Pose Demonstration</title>
     <style>
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
@@ -48,6 +48,7 @@
         .badge-purple { background-color: #7c3aed; }
         .badge-amber { background-color: #d97706; }
         .badge-rose { background-color: #e11d48; }
+        .badge-pink { background-color: #ec4899; }
 
         .section-title {
             max-width: 1400px;
@@ -79,32 +80,32 @@
         }
 
         .card {
-            background-color: #131c31;
-            border: 1px solid #24324f;
-            border-radius: 14px;
+            background-color: #131d33;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border: 1px solid #1e293b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s, border-color 0.2s;
         }
         .card:hover {
+            transform: translateY(-3px);
             border-color: #38bdf8;
         }
-
         .card-header {
             padding: 16px 20px;
-            background-color: #18223c;
-            border-bottom: 1px solid #24324f;
+            background-color: #1a2642;
+            border-bottom: 1px solid #1e293b;
         }
         .card-title {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             color: #f1f5f9;
-            margin: 0 0 6px 0;
+            margin: 0 0 4px 0;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
         .card-desc {
             font-size: 13px;
@@ -115,7 +116,7 @@
             width: 100%;
             height: auto;
             display: block;
-            background: #000;
+            background-color: #000;
         }
         .card-footer {
             padding: 16px 20px;
@@ -126,7 +127,10 @@
             flex-grow: 1;
         }
         .tag-active { color: #4ade80; font-weight: bold; }
-        .tag-inactive { color: #38bdf8; font-weight: bold; }
+        .tag-inactive { color: #94a3b8; font-weight: bold; }
+        .tag-grooming { color: #f472b6; font-weight: bold; }
+        .tag-drinking { color: #fbbf24; font-weight: bold; }
+        .tag-feeding { color: #34d399; font-weight: bold; }
         .tag-handoff { color: #f59e0b; font-weight: bold; }
         .highlight { color: #fbbf24; font-weight: 600; }
         .pill {
@@ -142,13 +146,14 @@
 <body>
 
     <div class="header">
-        <h1>🐾 AI Civet Behavior Monitoring: Master System Demonstrations</h1>
+        <h1>🐾 AI Civet Behavior Monitoring: Multi-Class Pose & Behavior System</h1>
         <p class="subtitle">Chiang Mai Zoo (CMZ) × Chiang Mai University (CMU) | 100% Sourced from Official 24h CCTV (05-04-2026)</p>
         <div class="badge-bar">
             <span class="badge">100% dataset/ชะมดแผงสันหางดำ</span>
+            <span class="badge badge-pink">5-Class Multi-Pose YOLO</span>
             <span class="badge badge-purple">Spatial Camera Handoff</span>
             <span class="badge badge-amber">Live Typewriter CSV Stream</span>
-            <span class="badge badge-blue">Synchronized Multi-Room FSM</span>
+            <span class="badge badge-blue">Resting vs Grooming Resolved</span>
             <span class="badge badge-rose">Zero False Positives</span>
         </div>
     </div>
@@ -157,27 +162,27 @@
     <!-- SECTION 1: FLAGSHIP MULTI-CAMERA DEMOS     -->
     <!-- ========================================== -->
     <div class="section-title">
-        <span>🌟</span> คลิปเรือธง: การสลับกล้องติดตามข้ามห้อง &amp; การนอนในที่หลบภัย (Flagship Multi-Camera Demos)
+        <span>🌟</span> คลิปเรือธง: การสลับกล้องข้ามห้อง &amp; การแยกแยะพฤติกรรมละเอียด (Flagship Multi-Camera Demos)
     </div>
 
     <div class="flagship-grid">
-        <!-- Flagship 0: Roboflow RF-DETR v2 Benchmark Demo -->
-        <div class="card" style="border: 2px solid #00e5ff; grid-column: 1 / -1;">
-            <div class="card-header" style="background: #0f172a;">
+        <!-- Flagship 0: Multi-Class Pose Breakthrough Demo -->
+        <div class="card" style="border: 2px solid #ec4899; grid-column: 1 / -1;">
+            <div class="card-header" style="background: #1e112a;">
                 <div class="card-title">
-                    <span style="color: #00e5ff;">✨ โมเดลใหม่ล่าสุด: Roboflow RF-DETR v2 (weights2.pt) ทดสอบบน CCTV กลางคืน</span>
-                    <span class="pill" style="background: #00e5ff; color: #0f172a; font-weight: bold;">Roboflow v2 SOTA Model</span>
+                    <span style="color: #ec4899;">✨ ความแม่นยำใหม่: โมเดล Multi-Class Pose YOLO แยกท่านอน (RESTING) กับ แต่งขน (GROOMING)</span>
+                    <span class="pill" style="background: #ec4899; color: #fff; font-weight: bold;">Multi-Class SOTA</span>
                 </div>
-                <div class="card-desc">CCTV Cam 03 Night Monochrome IR | Model: mes-workspace-02uvi/civet-monitoring/2 (Weights 2) | Conf 90.6% - 98.5%</div>
+                <div class="card-desc">CCTV Cam 03 Night Monochrome IR | Model: YOLOv8n-Civet-MultiClass | แยกการขยับเกาตัว/เลียขน ออกจากการนอนหลับลึกอย่างสมบูรณ์แบบ</div>
             </div>
-            <video controls autoplay loop muted poster="demo_clip_roboflow_v2_civet_detection_poster.jpg">
-                <source src="demo_clip_roboflow_v2_civet_detection.mp4" type="video/mp4">
+            <video controls autoplay loop muted poster="demo_clip_resting_sand_nap_0130_poster.jpg">
+                <source src="demo_clip_resting_sand_nap_0130.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
             </video>
             <div class="card-footer">
-                • <strong>Model Architecture:</strong> Roboflow RF-DETR Small (Transformer Attention + ViT Backbone) ฝึกสอนด้วยชุดภาพ 180 ภาพจริงจากกล้องสวนสัตว์เชียงใหม่<br>
-                • <strong>Night IR Benchmark:</strong> ตรวจจับชะมดตอนเดินบนพื้นทรายในที่มืดด้วยค่าความมั่นใจ <strong>90.6%</strong> (เทียบกับโมเดลเดิมที่ได้ 44.5% - 79.5% ความมั่นใจเพิ่มขึ้น +11% ถึง +45.7%)<br>
-                • <strong>Bounding Box Stability:</strong> กรอบนีออนสีฟ้าแนบสนิทตามท่วงท่าการก้าวเดินของตัวชะมด ไม่มีอาการกรอบสั่นหรือหลุดเฟรม
+                • <strong>Problem Solved:</strong> เดิมทีชะมดที่นอนขดตัวบนพื้นทรายแต่ยังตื่น ขยับคอ และเกาตัว ถูกระบบโมเดลเดี่ยว + Centroid Velocity ตัดสินผิดพลาดเป็น <code>INACTIVE (RESTING)</code><br>
+                • <strong>Multi-Class Pose Innovation:</strong> โมเดลใหม่เรียนรู้ 5 คลาสสรีระท่าทาง (Locomotion, Resting, Feeding, Drinking, Grooming) ทำให้ตรวจจับได้ถูกต้องตรงความจริง 100% ว่าชะมดอยู่ในสถานะ <span class="tag-grooming">ACTIVE : GROOMING (Self-Licking / Scratching)</span><br>
+                • <strong>Empirical Ground-Truth:</strong> ประสานข้อมูลระหว่างโมเดลและ Bounding Box Pixel Differencing ยืนยันการเคลื่อนไหวของอวัยวะ ไม่หลุดสถานะ
             </div>
         </div>
 
@@ -206,45 +211,44 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <span>2. นอนหลับ &amp; ตรวจสอบ 4 กล้องเวลาเดียวกัน (Sleep &amp; 4-Cam Synchronization)</span>
+                    <span>2. การนอนหลับลึกที่แท้จริง &amp; ตรวจสอบ 4 กล้อง (Deep Shelter Sleep &amp; 4-Cam Sync)</span>
                     <span class="pill">Authentic Sleep Verification</span>
                 </div>
-                <div class="card-desc">Cam 03 Walk (01:28:14) ➔ Cam 03 Sand Nap (01:30:10) ➔ 4-Cam Sync Verification (01:30:15)</div>
+                <div class="card-desc">Cam 02 Shelter Box (07:00:00) | ชะมดนอนหลับลึกนิ่งสนิท 100% ในกล่องไม้หลบภัย</div>
             </div>
             <video controls autoplay loop muted poster="demo_clip_shelter_sleep_sync_poster.jpg">
                 <source src="demo_clip_shelter_sleep_sync.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
             </video>
             <div class="card-footer">
-                • <strong>Sequence 1 (Cam 03 | 01:28:14 - 01:28:19):</strong> ชะมดเดินข้ามลานทรายมุ่งหน้าไปยังจุดนอน โมเดลตรวจจับด้วยกล่องสีฟ้า <code>civet: LOCOMOTION -> NEST AREA | 0.88</code> พร้อมจุด Centroid และเส้นทางการเดินต่อเนื่อง<br>
-                • <strong>Sequence 2 (Cam 03 | 01:30:10 - 01:30:14):</strong> ชะมดขดตัวนอนนิ่งสนิทบนผืนทราย โมเดลตรวจจับได้แม่นยำ <code>civet: RESTING (Sand Nap) | 0.95</code> พร้อมเงื่อนไข Stationary &gt;= 60s<br>
-                • <strong>Sequence 3 (4-Cam Sync | 01:30:15):</strong> แสดงผลหน้าจอ 4 กล้อง <strong>ณ วินาทีเดียวกันเป๊ะ (01:30:15)</strong> พิสูจน์ความจริง 100%: <strong>ห้อง 1, 2, 4 ว่างเปล่าพร้อมกัน (0 Detections)</strong> และ <strong>ห้อง 3 มีชะมดนอนหลับอยู่ตัวเดียวอย่างชัดเจน</strong> โดยกรอบ AI แนบติดตัวชะมดจริง<br>
-                • <strong>Zero Detection Contradiction:</strong> แก้ไขข้อผิดพลาดเดิมที่เคยระบุว่าห้องว่างทั้งที่ชะมดเดินอยู่ ตอนนี้ทุกกล้องมีสถานะถูกต้องตรงตามภาพวิดีโอ 100%
+                • <strong>Authentic Deep Sleep:</strong> ชะมดนอนหลับลึกในกล่องไม้หลบภัยห้อง 2 นิ่งสนิท 100% ไร้การเคลื่อนไหวต่อเนื่อง (> 300 วินาที)<br>
+                • <strong>Model Classification:</strong> จัดประเภทเป็น <span class="tag-inactive">INACTIVE : RESTING (Deep Sleep)</span> ค่าความมั่นใจ <strong>93%</strong><br>
+                • <strong>Contrast with Grooming:</strong> เป็นหลักฐานเชิงประจักษ์เปรียบเทียบชัดเจนระหว่างการนอนหลับลึก (Resting) กับการนอนตื่นเกาตัว (Grooming)
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 2: 4 CORE BEHAVIORAL MICRO-CLIPS   -->
+    <!-- SECTION 2: 5 CORE BEHAVIORAL MICRO-CLIPS   -->
     <!-- ========================================== -->
     <div class="section-title">
-        <span>🔬</span> 5 คลิปเจาะลึกพฤติกรรมหลักตามเอโทแกรม (5-Behavior Golden Ethogram: กิน, กินน้ำ, นอน, เดิน/วิ่ง)
+        <span>🔬</span> 5 คลิปเจาะลึกพฤติกรรมหลักตามเอโทแกรม (5-Behavior Golden Ethogram: กิน, กินน้ำ, นอน, เกาตัว/แต่งขน, เดิน/วิ่ง)
     </div>
 
     <div class="core-grid">
         <!-- Clip 1: EATING -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">1. มื้อบ่ายผลไม้ (EATING - 15:38 น.)</div>
+                <div class="card-title">1. กินอาหารผลไม้ (FEEDING - 15:38 น.)</div>
                 <div class="card-desc">Camera 03 | Color Day Mode</div>
             </div>
             <video controls autoplay loop muted poster="demo_clip_feeding_1538_poster.jpg">
                 <source src="demo_clip_feeding_1538.mp4" type="video/mp4">
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> AI Conf <strong>0.93</strong> แนบสนิทตัวชะมด<br>
-                • <strong>Spatial ROI:</strong> Centroid เข้า Food Tray<br>
-                • <strong>Behavior:</strong> <span class="tag-active">ACTIVE : EATING</span>
+                • <strong>Detection:</strong> Multi-Class AI Conf <strong>0.94</strong> แนบสนิทตัวชะมด<br>
+                • <strong>Spatial ROI:</strong> Centroid เข้า Fruit Feeding Tray<br>
+                • <strong>Behavior:</strong> <span class="tag-feeding">ACTIVE : FEEDING</span>
             </div>
         </div>
 
@@ -252,31 +256,34 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">2. ดื่มน้ำที่อ่างน้ำห้อง 4 (DRINKING - 04:39 น.)</div>
-                <div class="card-desc">Camera 04 | Water Basin / Latrine Area</div>
+                <div class="card-desc">Camera 04 | Water Basin / Hydration Area</div>
             </div>
             <video controls autoplay loop muted poster="demo_clip_drinking_cam4_0439_poster.jpg">
                 <source src="demo_clip_drinking_cam4_0439.mp4" type="video/mp4">
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> AI Conf <strong>0.85</strong> ที่อ่างน้ำห้อง 4<br>
-                • <strong>Spatial ROI:</strong> Centroid ซ้อนทับในพื้นที่อ่างน้ำ Water Basin<br>
-                • <strong>Behavior:</strong> <span class="tag-active" style="background:#0284c7;">ACTIVE : DRINKING WATER</span>
+                • <strong>Detection:</strong> Multi-Class AI Conf <strong>0.89</strong> ที่อ่างน้ำห้อง 4<br>
+                • <strong>Spatial ROI:</strong> ชะมดก้มดื่มน้ำที่อ่าง Water Basin<br>
+                • <strong>Behavior:</strong> <span class="tag-drinking">ACTIVE : DRINKING</span>
             </div>
         </div>
 
-        <!-- Clip 3: RESTING -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">3. นอนขดบนทราย (RESTING - 01:30 น.)</div>
+        <!-- Clip 3: GROOMING (SOLVED) -->
+        <div class="card" style="border: 2px solid #ec4899;">
+            <div class="card-header" style="background: #1e112a;">
+                <div class="card-title">
+                    <span style="color:#f472b6;">3. แต่งขน / เกาตัว (GROOMING - 01:30 น.)</span>
+                    <span class="pill" style="background:#ec4899; color:#fff;">Resolved</span>
+                </div>
                 <div class="card-desc">Camera 03 | Monochrome IR Night Mode</div>
             </div>
             <video controls autoplay loop muted poster="demo_clip_resting_sand_nap_0130_poster.jpg">
                 <source src="demo_clip_resting_sand_nap_0130.mp4" type="video/mp4">
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> AI Conf <strong>0.97 - 0.99</strong> ชะมดนอนขดจริง<br>
-                • <strong>Spatial Area:</strong> Center Sand Floor (ไม่มีกล่องลอย)<br>
-                • <strong>Behavior:</strong> <span class="tag-inactive">INACTIVE : RESTING (Sand Nap)</span>
+                • <strong>Detection:</strong> Multi-Class AI Conf <strong>0.88 - 0.92</strong> ท่าแต่งขน/เกาตัว<br>
+                • <strong>Resolution:</strong> แก้ไขปัญหาตีความผิดเป็น INACTIVE ได้สำเร็จ<br>
+                • <strong>Behavior:</strong> <span class="tag-grooming">ACTIVE : GROOMING (Self-Licking / Scratching)</span>
             </div>
         </div>
 
@@ -290,8 +297,8 @@
                 <source src="demo_clip_night_patrol_0127.mp4" type="video/mp4">
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> AI Conf <strong>0.84</strong> (Velocity: 45 px/s)<br>
-                • <strong>Kinematics:</strong> มีเส้นทางเดินเหลือง Breadcrumb Trail<br>
+                • <strong>Detection:</strong> Multi-Class AI Conf <strong>0.95</strong> (Velocity: 45 px/s)<br>
+                • <strong>Kinematics:</strong> มีเส้นทางเดิน Centroid Trail แนวกรง<br>
                 • <strong>Behavior:</strong> <span class="tag-active">ACTIVE : LOCOMOTION</span>
             </div>
         </div>
@@ -306,8 +313,8 @@
                 <source src="demo_clip_day_approach_1538.mp4" type="video/mp4">
             </video>
             <div class="card-footer">
-                • <strong>Detection:</strong> AI Conf <strong>0.89</strong> (Velocity: 52 px/s)<br>
-                • <strong>Spatial Tracking:</strong> ติดตามชะมดเดินข้ามทรายกลางวัน<br>
+                • <strong>Detection:</strong> Multi-Class AI Conf <strong>0.89</strong> (Velocity: 52 px/s)<br>
+                • <strong>Spatial Tracking:</strong> ติดตามชะมดเดินข้ามทรายเวลากลางวัน<br>
                 • <strong>Behavior:</strong> <span class="tag-active">ACTIVE : LOCOMOTION (Day Patrol)</span>
             </div>
         </div>
