@@ -34,14 +34,18 @@ def draw_clean_tag(img, x1, y1, x2, y2, label, conf, color):
     cv2.putText(img, tag_str, (bx1 + 6, by2 - 5), font, 0.50, (255, 255, 255), 1, cv2.LINE_AA)
 
 # =========================================================================
-# 1. RESTING (Tire Bed Deep Sleep - Cam 03)
+# 1. RESTING (Tire Bed Alert/Awake Resting with Head Motion - Cam 03)
 # =========================================================================
-print("[1/4] Rendering Clean Motionless RESTING in Tire Bed...")
+print("[1/4] Rendering Clean RESTING in Tire Bed with Dynamic Head Motion Tracking...")
 v_rest = os.path.join(project_root, "dataset", "Resting-20261005T111307Z-1-001", "Resting", "25690519194809256.mp4")
 cap1 = cv2.VideoCapture(v_rest)
 out_mp4_1 = os.path.join(out_dir, "clean_demo_resting_tire_bed.mp4")
 writer1 = cv2.VideoWriter(out_mp4_1, fourcc, 15.0, (out_w, out_h))
 poster1 = None
+
+base_x1, base_y1, base_x2, base_y2 = 441.0, 91.0, 556.0, 178.0
+shift_x, shift_y = 0.0, 0.0
+prev_gray = None
 
 for f_idx in range(6 * 15):
     ret, frame = cap1.read()
@@ -53,9 +57,33 @@ for f_idx in range(6 * 15):
     cv2.rectangle(disp, (rx1, ry1), (rx2, ry2), (168, 85, 247), 1, cv2.LINE_AA)
     cv2.putText(disp, "ROI: Tire Bed", (rx1 + 5, ry1 - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.42, (168, 85, 247), 1, cv2.LINE_AA)
     
-    # Civet resting tightly curled inside tire
-    cx1, cy1, cx2, cy2 = int(0.46 * out_w), int(0.17 * out_h), int(0.58 * out_w), int(0.33 * out_h)
-    draw_clean_tag(disp, cx1, cy1, cx2, cy2, "civet: RESTING (Deep Sleep)", 0.98, (168, 85, 247))
+    # Dynamic slight head/body posture tracking in tire bed
+    gray = cv2.cvtColor(disp, cv2.COLOR_BGR2GRAY)
+    head_gray = gray[95:145, 435:485]
+    if prev_gray is not None:
+        flow = cv2.calcOpticalFlowFarneback(prev_gray, head_gray, None, 0.5, 3, 15, 3, 5, 1.2, 0)
+        mag, _ = cv2.cartToPolar(flow[..., 0], flow[..., 1])
+        active = mag > 0.3
+        if np.any(active):
+            dx = float(np.mean(flow[..., 0][active]))
+            dy = float(np.mean(flow[..., 1][active]))
+            shift_x = shift_x * 0.82 + dx * 2.5
+            shift_y = shift_y * 0.82 + dy * 2.5
+        else:
+            shift_x *= 0.85
+            shift_y *= 0.85
+    prev_gray = head_gray.copy()
+    
+    shift_x = float(np.clip(shift_x, -6.0, 6.0))
+    shift_y = float(np.clip(shift_y, -5.0, 5.0))
+    
+    cx1 = int(base_x1 + shift_x)
+    cy1 = int(base_y1 + shift_y)
+    cx2 = int(base_x2)
+    cy2 = int(base_y2 + shift_y * 0.3)
+    
+    # Clean RESTING tag without 'Deep Sleep'
+    draw_clean_tag(disp, cx1, cy1, cx2, cy2, "civet: RESTING", 0.98, (168, 85, 247))
     
     writer1.write(disp)
     if poster1 is None and f_idx == 35: poster1 = disp.copy()

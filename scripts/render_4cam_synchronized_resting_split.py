@@ -80,10 +80,16 @@ for f_idx in range(6 * 15):
         
         # Specific ROIs for each camera
         if spec["id"] == "Cam 02":
-            # Sleeping box opening ROI
-            cv2.rectangle(frame, (int(sub_w * 0.15), int(sub_h * 0.15)), (int(sub_w * 0.55), int(sub_h * 0.65)), (168, 85, 247), 2, cv2.LINE_AA)
-            cv2.putText(frame, "ROI: Indoor Sleeping Box [OCCUPIED]", (int(sub_w * 0.15), int(sub_h * 0.15) - 6),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.42, (168, 85, 247), 1, cv2.LINE_AA)
+            # Sleeping box ROI (Wooden box / platform in top-right matching user's red box annotation)
+            bx1, by1 = int(sub_w * 0.29), int(sub_h * 0.11)
+            bx2, by2 = int(sub_w * 0.69), int(sub_h * 0.44)
+            cv2.rectangle(frame, (bx1, by1), (bx2, by2), (168, 85, 247), 2, cv2.LINE_AA)
+            
+            tag_text = "ROI: Indoor Sleeping Box [OCCUPIED]"
+            (tw, th), _ = cv2.getTextSize(tag_text, cv2.FONT_HERSHEY_SIMPLEX, 0.40, 1)
+            cv2.rectangle(frame, (bx1, by1), (bx1 + tw + 10, by1 + th + 8), (15, 23, 42), -1)
+            cv2.rectangle(frame, (bx1, by1), (bx1 + tw + 10, by1 + th + 8), (168, 85, 247), 1, cv2.LINE_AA)
+            cv2.putText(frame, tag_text, (bx1 + 5, by1 + th + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.40, (255, 255, 255), 1, cv2.LINE_AA)
         elif spec["id"] == "Cam 03":
             # Tire bed ROI
             cv2.rectangle(frame, (int(sub_w * 0.38), int(sub_h * 0.12)), (int(sub_w * 0.65), int(sub_h * 0.48)), (75, 85, 99), 1, cv2.LINE_AA)

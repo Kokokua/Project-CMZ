@@ -46,12 +46,12 @@ clean_clips_dir = r"C:\Users\ASUS\Desktop\html knowledge file\CMZ project\demo_c
 
 DEMO_CONFIGS = [
     {
-        "title": "DEMO 1: RESTING — การนอนหลับพักผ่อนในยางรถ (Tire Bed Deep Sleep)",
+        "title": "DEMO 1: RESTING — การนอนพักผ่อนในยางรถ (Tire Bed Resting)",
         "cam": "Camera 03: โซนที่นอนยางรถยนต์ (Tire Bed ROI)",
-        "behavior": "RESTING (นอนขดตัวหลับลึกนิ่งสนิท)",
-        "state": "INACTIVE STATE (Deep Sleep >= 60s)",
+        "behavior": "RESTING (นอนขดตัวพักผ่อนในยางรถ มีการขยับศีรษะตื่นตัวเล็กน้อย)",
+        "state": "INACTIVE / ALERT RESTING STATE",
         "conf": "Confidence: 0.98",
-        "detail": "• สัตว์ขดตัวนิ่งในที่นอนยางรถยนต์ต่อเนื่องเกิน 60 วินาที\n• นับเป็นสถานะ Inactive ตามเกณฑ์สัตววิทยา\n• ระบบตีกรอบครอบคลุมเฉพาะตัวชะมดแม่นยำ ไม่สับสนกับกระถางต้นไม้หรือเงา\n• ภาพระดับคมชัดระดับ HD พร้อม Tag แสดงผลแบบ Sleek ไร้ป้ายบดบัง",
+        "detail": "• สัตว์ขดตัวพักผ่อนในที่นอนยางรถยนต์ต่อเนื่องเกิน 60 วินาที\n• จัดอยู่ในกลุ่มสถานะ Inactive / Alert Resting ตามเกณฑ์สัตววิทยา\n• ระบบตีกรอบแบบไดนามิก ปรับตามการหัน/เอียงศีรษะของชะมดอย่างแม่นยำ\n• ภาพระดับคมชัดระดับ HD พร้อม Tag แสดงผล 'civet: RESTING' ไร้ป้ายบดบัง",
         "mp4": os.path.join(clean_clips_dir, "clean_demo_resting_tire_bed.mp4"),
         "poster": os.path.join(clean_clips_dir, "clean_demo_resting_tire_bed_poster.jpg"),
         "accent": C_PURPLE
@@ -188,5 +188,8 @@ prs.save(out_deck)
 print(f"Saved updated presentation deck to: {out_deck}")
 
 finish_deck = os.path.join(project_root, "finish", "Image_Processing_Presentation_Phase2_Final.pptx")
-prs.save(finish_deck)
-print(f"Mirrored updated presentation deck to: {finish_deck}")
+try:
+    prs.save(finish_deck)
+    print(f"Mirrored updated presentation deck to: {finish_deck}")
+except PermissionError:
+    print(f"Note: {finish_deck} is currently open in PowerPoint. Desktop version was updated successfully.")
