@@ -134,22 +134,24 @@ def run_visual_audit(weights_path):
             print("  ❌ GROOMING: Failed to detect grooming!")
             audit_results["behavior_tests_passed"] = False
 
-    # C. Genuine Drinking (Water basin)
+    # C. Genuine Drinking (Water basin - civet snout actively dipped in basin at sec 1337)
     v_drink = os.path.join(project_root, "dataset", "ชะมดแผงสันหางดำ", "camera 4", "A04_04.17-08.19_dur_4h01m.mp4")
     cap_d = cv2.VideoCapture(v_drink)
-    cap_d.set(cv2.CAP_PROP_POS_FRAMES, int(1324 * 30))
+    cap_d.set(cv2.CAP_PROP_POS_FRAMES, int(1337 * 30))
     ret_d, frame_d = cap_d.read()
     cap_d.release()
     if ret_d:
         res_d = model.predict(frame_d, conf=0.30, verbose=False)[0]
-        drink_hit = any(int(b.cls[0]) == 3 for b in res_d.boxes)
+        # Must be class 3 (drinking) and located at the basin area
+        drink_boxes = [b for b in res_d.boxes if int(b.cls[0]) == 3 and b.xyxy[0][1] > 400 and b.xyxy[0][0] > 500]
+        drink_hit = len(drink_boxes) > 0
         audit_results["behavior_details"]["drinking"] = drink_hit
         if drink_hit:
-            b = [b for b in res_d.boxes if int(b.cls[0]) == 3][0]
-            print(f"  ✅ DRINKING: Detected correctly at water basin! Conf={float(b.conf[0]):.2f}")
+            b = drink_boxes[0]
+            print(f"  ✅ DRINKING: Detected correctly at water basin! Conf={float(b.conf[0]):.2f} Box={[int(v) for v in b.xyxy[0].tolist()]}")
             res_d.save(os.path.join(audit_dir, "audit_verified_drinking.jpg"))
         else:
-            print("  ❌ DRINKING: Failed to detect drinking!")
+            print("  ❌ DRINKING: Failed to detect genuine drinking at water basin!")
             audit_results["behavior_tests_passed"] = False
 
     # ----------------------------------------------------

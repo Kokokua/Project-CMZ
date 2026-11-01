@@ -198,19 +198,20 @@ if poster3 is not None:
 print("  Finished demo_clip_feeding_1538.mp4 (FEEDING)")
 
 # =========================================================================
-# 4. CLIP 4: DRINKING (Cam 04 - 04:39:04 Water Basin)
+# 4. CLIP 4: DRINKING (Cam 04 - 04:40:08 Water Basin)
 # =========================================================================
 print("\n[RENDER 4/5] Rendering demo_clip_drinking_cam4_0439.mp4 (DRINKING)...")
 vpath4 = os.path.join(base_dir, "dataset", "ชะมดแผงสันหางดำ", "camera 4", "A04_04.17-08.19_dur_4h01m.mp4")
 assert os.path.normpath(r"dataset\ชะมดแผงสันหางดำ") in os.path.normpath(vpath4)
 cap4 = cv2.VideoCapture(vpath4)
-cap4.set(cv2.CAP_PROP_POS_FRAMES, int(1324 * 30))
+# Civet actively drinks water at basin from sec 1335 to 1341 (OSD 04:40:06 - 04:40:12)
+cap4.set(cv2.CAP_PROP_POS_FRAMES, int(1335 * 30))
 out_mp4_4 = os.path.join(out_dir, "demo_clip_drinking_cam4_0439.mp4")
 writer4 = cv2.VideoWriter(out_mp4_4, fourcc, 15.0, (out_w, out_h))
 
 poster4 = None
-wb_x1, wb_y1 = int(610 * sx), int(560 * sy)
-wb_x2, wb_y2 = int(860 * sx), int(810 * sy)
+wb_x1, wb_y1 = int(600 * sx), int(520 * sy)
+wb_x2, wb_y2 = int(830 * sx), int(690 * sy)
 
 for f_idx in range(6 * 15):
     ret, frame = cap4.read()
@@ -220,19 +221,20 @@ for f_idx in range(6 * 15):
     disp = cv2.resize(frame, (out_w, out_h))
     res = model.predict(disp, conf=0.25, verbose=False)[0]
     
+    # Draw Water Basin ROI
     cv2.rectangle(disp, (wb_x1, wb_y1), (wb_x2, wb_y2), (251, 191, 36), 2)
     cv2.putText(disp, "ROI: Water Basin", (wb_x1, wb_y1 - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (251, 191, 36), 2)
     
-    # Filter for civet at bottom half
-    bottom_boxes = [b for b in res.boxes if b.xyxy[0][1] > int(400 * sy)]
-    if bottom_boxes:
-        b = max(bottom_boxes, key=lambda x: x.conf[0])
+    # Detect civet drinking at the basin
+    drinking_boxes = [b for b in res.boxes if b.xyxy[0][1] > int(350 * sy) and b.xyxy[0][0] > int(450 * sx)]
+    if drinking_boxes:
+        b = max(drinking_boxes, key=lambda x: x.conf[0])
         bx1, by1, bx2, by2 = [int(v) for v in b.xyxy[0].tolist()]
         conf_val = float(b.conf[0])
         cls_id = int(b.cls[0])
         draw_multiclass_tag(disp, bx1, by1, bx2, by2, cls_id, conf_val, "(Water Basin)")
         
-    draw_hud(disp, "CAM 04", "2026-04-05 04:39:04", "ACTIVE", "DRINKING", "Hydration Activity")
+    draw_hud(disp, "CAM 04", "2026-04-05 04:40:08", "ACTIVE", "DRINKING", "Water Basin Hydration")
     writer4.write(disp)
     if poster4 is None and f_idx == 30:
         poster4 = disp.copy()
