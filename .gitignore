@@ -32,6 +32,8 @@ dataset_phase2/*
 !dataset_phase2/data.yaml
 dataset_multiclass/*
 !dataset_multiclass/data_multiclass.yaml
+dataset_v3/
+dataset_v3_lean/
 
 # Models: keep only trained clean best.pt weights
 runs/
@@ -51,6 +53,9 @@ models/*.pt
 models/yolov8n_civet_multiclass/*
 !models/yolov8n_civet_multiclass/weights/
 !models/yolov8n_civet_multiclass/weights/best.pt
+models/yolov8n_civet_v3/*
+!models/yolov8n_civet_v3/weights/
+!models/yolov8n_civet_v3/weights/best.pt
 **/last.pt
 
 # Finish: keep only final presentation, 24h CSV log, chart, and html viewer
@@ -90,6 +95,9 @@ scripts/*
 !scripts/render_4cam_synchronized_resting_split.py
 !scripts/generate_standardized_24h_event_log.py
 !scripts/run_24h_behavior_inference_engine.py
+!scripts/train_yolov8_civet_v3_fast.py
+!scripts/verify_v3_improvements.py
+!scripts/render_clean_presentation_clips.py
 
 # Root files
 *.pptx
