@@ -1,0 +1,38 @@
+00:00:00 - 00:35:40 Sleeping Room 2
+00:35:40 - 00:35:45 Locomotion Room 2 Room 3
+00:35:45 - 00:36:54 Eating Room 3
+00:36:54 - 00:37:06 Locomotion Room 3 Room 2
+00:37:06 - 00:40:08 Resting (Sitting) Room 2
+00:40:08 - 00:40:11 Locomotion Room 2 Room 3
+00:40:11 - 00:40:25 Eating Room 3
+00:40:25 - 00:40:42 Locomotion Room 3 Room 4
+00:40:42 - 00:41:26 Drinking Room 4
+00:41:26 - 00:42:14 Locomotion Room 4 Room 3 Room 2
+00:42:14 - 00:42:37 Eating Room 3
+00:42:37 - 00:46:24 Locomotion Room 3 Room 2
+00:46:24 - 00:50:20 Drinking & Resting (drinking 1:30 min) Room 4
+00:50:20 - 01:00:18 Locomotion Room 4 Room 3 Room 2 Room 1
+01:00:18 - 01:01:14 Resting (Sitting) Drinking 5 secs Room 4
+01:01:14 - 01:01:34 Grooming Room 4
+01:01:34 - 01:04:09 Locomotion Room 4 Room 3 Room 2 Room 1
+01:04:09 - 01:05:35 Drinking Room 4
+01:05:35 - 01:06:47 Locomotion Room 4
+01:06:47 - 01:08:35 Grooming Room 4
+01:08:35 - 01:11:50 Locomotion Room 4
+01:11:50 - 01:13:35 Drinking Room 4 Room 3 Room 2 Room 1
+01:13:35 - 01:16:50 Locomotion Room 4 Room 3 Room 2 Room 1
+01:16:50 - 01:18:00 Drinking Room 4
+01:18:00 - 01:29:00 Locomotion Room 4 Room 3 Room 2 Room 1
+01:29:00 - 01:30:31 Grooming Room 3
+01:30:31 - 01:32:30 Locomotion Room 4 Room 3
+01:32:30 - 01:33:50 Resting (Sitting) Drinking 10 secs Room 4
+01:33:50 - 01:37:43 Locomotion Room 4 Room 3 Room 2
+01:37:43 - 02:42:28  Resting (Sleep) Room 2
+02:42:28 - 02:42:33 Locomotion Room 2 Room 3
+02:42:33 - 02:42:53 Eating Room 3
+02:42:53 - 02:43:03 Locomotion Room 4 Room 3
+02:43:03 - 02:44:10 Drinking Room 4
+02:44:10 - 02:45:38 Locomotion Room 4 Room 3 Room 2
+02:45:38 - 02:59:32 Resting (Sleep) Room 2
+02:59:32 - 03:00:00 Locomotion Room 2 Room 3
+
