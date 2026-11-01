@@ -83,6 +83,9 @@ scripts/*
 !scripts/render_all_multiclass_demo_clips.py
 !scripts/update_presentation_multiclass.py
 !scripts/run_auto_train_audit_loop.py
+!scripts/render_all_clean_slide_clips.py
+!scripts/embed_videos_into_presentation.py
+!scripts/render_4cam_synchronized_resting_split.py
 
 # Root files
 *.pptx
