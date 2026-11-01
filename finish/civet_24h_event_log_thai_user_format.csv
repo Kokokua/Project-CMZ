@@ -1,0 +1,36 @@
+﻿Event ID,ช่วงเวลา,ระยะเวลา,Macro State,พฤติกรรม,ตำแหน่งห้อง,Duration (seconds),Location Detail,Confidence / Verification Method
+EVT_001,00:00:00 - 00:35:40,35 นาที 40 วินาที,INACTIVE,RESTING (นอนหลับพักผ่อนในกล่องนอนไม้),Room 2 (Camera 02),2140,Sleeping Box (Upper-Right Wooden Ledge),0.98 | Spatial Exclusion + Proof-of-Ingress Anchor
+EVT_002,00:35:40 - 00:37:40,2 นาที,ACTIVE,LOCOMOTION (เดินลงทางลาดสำรวจห้อง),Room 2 (Camera 02),120,Ramp towards Doorway,0.94 | YOLOv8 + Centroid Displacement Tracking
+EVT_003,00:37:40 - 00:38:15,35 วินาที,ACTIVE,TRANSIT (เดินข้ามห้อง),Doorway (Camera 02/03),35,Transit Corridor (Room 2 -> Room 3),0.96 | Multi-Camera Doorway Handoff FSM
+EVT_004,00:38:15 - 01:28:00,49 นาที 45 วินาที,ACTIVE,LOCOMOTION (เดินสำรวจลานทรายและริมรั้ว),Room 3 (Camera 03),2985,Sand Floor & Perimeter Fence,0.92 | YOLOv8 + Optical Flow Motion Gating
+EVT_005,01:28:00 - 01:34:00,6 นาที,INACTIVE,RESTING (พักผ่อนหลับสั้นบนลานทราย),Room 3 (Camera 03),360,Center Sand Floor (Short Nap),0.95 | YOLOv8 + 1-Min FSM Sleep Filter
+EVT_006,01:34:00 - 02:55:00,1 ชั่วโมง 21 นาที,ACTIVE,LOCOMOTION (เดินสำรวจและปีนป่ายขอนไม้),Room 3 (Camera 03),4860,Climbing Wooden Log & Sand Floor,0.91 | YOLOv8 + Centroid Velocity Gating (vt >= 20px/s)
+EVT_007,02:55:00 - 03:15:00,20 นาที,INACTIVE,RESTING (พักผ่อนข้างที่นอนยางรถ),Room 3 (Camera 03),1200,Beside Tire Bed / Ground Wall,0.93 | YOLOv8 + 1-Min FSM Sleep Filter
+EVT_008,03:15:00 - 03:35:00,20 นาที,ACTIVE,LOCOMOTION (เดินลาดตระเวนรอบกรงกลางคืน),Room 3 (Camera 03),1200,Sand Floor Night Patrol,0.90 | YOLOv8 + Spatial Heatmap Tracking
+EVT_009,03:35:00 - 03:35:48,48 วินาที,ACTIVE,TRANSIT (เดินข้ามห้องไปดื่มน้ำ),Doorway (Camera 03/04),48,Transit Corridor (Room 3 -> Room 4),0.94 | Multi-Camera Doorway Handoff FSM
+EVT_010,03:35:48 - 03:36:18,30 วินาที,ACTIVE,DRINKING (ดื่มน้ำในอ่าง (มื้อดึก)),Room 4 (Camera 04),30,Water Basin (Genuine Ingestive Drinking),0.97 | YOLOv8 + Water Basin Polygon ROI Filter
+EVT_011,03:36:18 - 03:37:00,42 วินาที,ACTIVE,TRANSIT (เดินกลับข้ามห้อง),Doorway (Camera 04/03),42,Transit Corridor (Room 4 -> Room 3),0.94 | Multi-Camera Doorway Handoff FSM
+EVT_012,03:37:00 - 05:50:00,2 ชั่วโมง 13 นาที,ACTIVE,LOCOMOTION (เดินลาดตระเวนกลางคืนต่อเนื่อง),Room 3 (Camera 03),7980,General Exploration & Prowling,0.89 | YOLOv8 + Spatial Heatmap Tracking
+EVT_013,05:50:00 - 05:55:26,5 นาที 26 วินาที,ACTIVE,TRANSIT (เดินกลับข้ามห้องเข้าที่นอน),Doorway (Camera 03/02),326,Return Transit Corridor (Room 3 -> Room 2),0.95 | Multi-Camera Doorway Handoff FSM
+EVT_014,05:55:26 - 09:51:30,3 ชั่วโมง 56 นาที 4 วินาที,INACTIVE,RESTING (นอนหลับลึกในกล่องนอนไม้),Room 2 (Camera 02),14164,Sleeping Box (Deep Morning Sleep),0.99 | Spatial Exclusion + Proof-of-Ingress Anchor
+EVT_015,09:51:30 - 11:06:12,1 ชั่วโมง 14 นาที 42 วินาที,INACTIVE,RESTING (นอนหลับต่อเนื่องก่อนอาหารเช้า),Room 2 (Camera 02),4482,Sleeping Box (Pre-Feeding Sleep),0.99 | Spatial Exclusion + Proof-of-Ingress Anchor
+EVT_016,11:06:12 - 11:07:05,53 วินาที,ACTIVE,LOCOMOTION (ตื่นนอนขยับตัวรออาหาร),Room 2 (Camera 02),53,Waking up / Awaiting Feeding (Keeper Entry),0.92 | YOLOv8 + Motion Energy Spike Gating
+EVT_017,11:07:05 - 11:38:00,30 นาที 55 วินาที,ACTIVE,FEEDING (กินอาหารมื้อหลัก (เนื้อสด/อาหารเสริม)),Room 2 (Camera 02),1855,Food Tray (Morning Meat/Feed),0.96 | YOLOv8 + Food Tray Dual Polygon ROI
+EVT_018,11:38:00 - 11:45:00,7 นาที,ACTIVE,GROOMING (ไซร้ขนและแต่งขนหลังกินอาหาร),Room 2 (Camera 02),420,Ramp Post-Feeding Grooming & Face Washing,0.94 | High Patch Motion Energy + Zero Displacement
+EVT_019,11:45:00 - 12:05:00,20 นาที,INACTIVE,RESTING (พักผ่อนบนทางลาดหลังกินอาหาร),Room 2 (Camera 02),1200,Ramp Post-Feeding Rest,0.94 | YOLOv8 + 1-Min FSM Sleep Filter
+EVT_020,12:05:00 - 12:07:05,2 นาที 5 วินาที,ACTIVE,TRANSIT (เดินข้ามห้องไปลานทราย),Doorway (Camera 02/03),125,Transit Corridor (Room 2 -> Room 3),0.95 | Multi-Camera Doorway Handoff FSM
+EVT_021,12:07:05 - 14:03:27,1 ชั่วโมง 56 นาที 22 วินาที,INACTIVE,RESTING (นอนหลับกลางวันในที่นอนยางรถ),Room 3 (Camera 03),6982,Straw Tire Bed (Midday Sleep),0.97 | YOLOv8 + Tire Bed Sanitized ROI
+EVT_022,14:03:27 - 15:38:45,1 ชั่วโมง 35 นาที 18 วินาที,INACTIVE,RESTING (นอนหลับช่วงบ่ายในที่นอนยางรถ),Room 3 (Camera 03),5718,Straw Tire Bed (Afternoon Sleep),0.98 | YOLOv8 + Tire Bed Sanitized ROI
+EVT_023,15:38:45 - 15:43:30,4 นาที 45 วินาที,ACTIVE,FEEDING (กินผลไม้ช่วงบ่าย (แตงโม/แอปเปิ้ล)),Room 3 (Camera 03),285,Food Tray (Fresh Fruit Feeding),0.97 | YOLOv8 + Fruit Tray Dwell ROI Filter
+EVT_024,15:43:30 - 16:25:00,41 นาที 30 วินาที,INACTIVE,RESTING (พักผ่อนบนที่นอนยางรถยนต์),Room 3 (Camera 03),2490,Straw Tire Bed (Post-Fruit Rest),0.96 | YOLOv8 + Tire Bed Sanitized ROI
+EVT_025,16:25:00 - 17:10:00,45 นาที,INACTIVE,RESTING (พักผ่อนใต้ขอนไม้ริมรั้ว),Room 3 (Camera 03),2700,Under Wooden Log (Right Fence),0.95 | YOLOv8 + 1-Min FSM Sleep Filter
+EVT_026,17:10:00 - 17:15:00,5 นาที,ACTIVE,GROOMING (ไซร้ขนและแต่งขนหลังตื่นนอน),Room 3 (Camera 03),300,Sand Floor Self-Directed Grooming,0.93 | High Patch Motion Energy + Zero Displacement
+EVT_027,17:15:00 - 17:45:00,30 นาที,INACTIVE,RESTING (พักผ่อนช่วงพลบค่ำในยางรถ),Room 3 (Camera 03),1800,Straw Tire Bed (Evening Nap),0.96 | YOLOv8 + Tire Bed Sanitized ROI
+EVT_028,17:45:00 - 18:18:06,33 นาที 6 วินาที,ACTIVE,LOCOMOTION (เดินสำรวจช่วงหัวค่ำ),Room 3 (Camera 03),1986,Dusk Locomotion / Sand Floor,0.94 | YOLOv8 + Centroid Velocity Gating (vt >= 20px/s)
+EVT_029,18:18:06 - 19:35:00,1 ชั่วโมง 16 นาที 54 วินาที,ACTIVE,LOCOMOTION (เดินลาดตระเวนกลางคืน),Room 3 (Camera 03),4614,Active Night Prowling,0.91 | YOLOv8 + Night IR Contrast Tracking
+EVT_030,19:35:00 - 19:40:00,5 นาที,ACTIVE,TRANSIT (เดินข้ามห้องไปดื่มน้ำ),Doorway (Camera 03/04),300,Transit Corridor (Room 3 -> Room 4),0.94 | Multi-Camera Doorway Handoff FSM
+EVT_031,19:40:00 - 19:42:30,2 นาที 30 วินาที,ACTIVE,DRINKING (ดื่มน้ำในอ่าง (มื้อค่ำ)),Room 4 (Camera 04),150,Water Basin (Drinking Water),0.95 | YOLOv8 + Water Basin Polygon ROI Filter
+EVT_032,19:42:30 - 19:45:00,2 นาที 30 วินาที,ACTIVE,TRANSIT (เดินกลับข้ามห้อง),Doorway (Camera 04/03),150,Transit Corridor (Room 4 -> Room 3),0.94 | Multi-Camera Doorway Handoff FSM
+EVT_033,19:45:00 - 21:10:00,1 ชั่วโมง 25 นาที,ACTIVE,LOCOMOTION (ปีนป่ายขอนไม้และลาดตระเวน),Room 3 (Camera 03),5100,Log Climbing & Patrolling,0.90 | YOLOv8 + Centroid Velocity Gating (vt >= 20px/s)
+EVT_034,21:10:00 - 21:30:00,20 นาที,INACTIVE,RESTING (พักผ่อนบนพื้นทรายกลางคืน),Room 3 (Camera 03),1200,Center Sand Floor (Night Nap),0.94 | YOLOv8 + 1-Min FSM Sleep Filter
+EVT_035,21:30:00 - 24:00:00,2 ชั่วโมง 30 นาที,ACTIVE,LOCOMOTION (เดินสำรวจกลางคืนต่อเนื่อง),Room 3 (Camera 03),9000,Active Locomotion / Sand Walking,0.92 | YOLOv8 + Night IR Contrast Tracking

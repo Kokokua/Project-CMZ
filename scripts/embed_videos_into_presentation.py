@@ -184,12 +184,15 @@ for cfg in DEMO_CONFIGS:
 
 # Save presentation
 out_deck = r"C:\Users\ASUS\Desktop\html knowledge file\CMZ project\Image_Processing_Presentation_Phase2_Final.pptx"
-prs.save(out_deck)
-print(f"Saved updated presentation deck to: {out_deck}")
+try:
+    prs.save(out_deck)
+    print(f"Saved updated presentation deck to: {out_deck}")
+except PermissionError:
+    print(f"Note: {out_deck} is currently open in PowerPoint.")
 
 finish_deck = os.path.join(project_root, "finish", "Image_Processing_Presentation_Phase2_Final.pptx")
 try:
     prs.save(finish_deck)
     print(f"Mirrored updated presentation deck to: {finish_deck}")
 except PermissionError:
-    print(f"Note: {finish_deck} is currently open in PowerPoint. Desktop version was updated successfully.")
+    print(f"Note: {finish_deck} is currently open in PowerPoint.")

@@ -57,6 +57,8 @@ models/yolov8n_civet_multiclass/*
 finish/*
 !finish/Image_Processing_Presentation_Phase2_Final.pptx
 !finish/daily_behavior_log.csv
+!finish/civet_24h_event_log_thai_user_format.csv
+!finish/civet_24h_standardized_event_log.csv
 !finish/vet_activity_report.png
 !finish/comparison_ramp_fix.jpg
 !finish/comparison_tire_bed_fix.jpg
@@ -86,6 +88,8 @@ scripts/*
 !scripts/render_all_clean_slide_clips.py
 !scripts/embed_videos_into_presentation.py
 !scripts/render_4cam_synchronized_resting_split.py
+!scripts/generate_standardized_24h_event_log.py
+!scripts/run_24h_behavior_inference_engine.py
 
 # Root files
 *.pptx
