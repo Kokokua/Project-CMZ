@@ -1,104 +1,110 @@
-# 🐾 Automated Civet Behavior Monitoring System (Phase 2 Submission)
-**Chiang Mai Zoo (CMZ) × Chiang Mai University (CMU) - Advanced Image Processing**
+# YOLOv8n Civet Detection & Behavior Model (v3)
 
-> **Target Subject**: Large Indian Civet (*Viverra zibetha* - "หอมป้อม")  
-> **Monitoring Duration**: 24.0 Hours Continuous Synchronized Video (`2026-04-05 00:00:00 – 24:00:00`)  
-> **Camera Coverage**: 4 Synchronized Enclosure Rooms (Camera 01 to Camera 04)  
-> **Model Architecture**: Decoupled YOLOv8n Single-Class Detector + Multi-Camera Spatial Handoff FSM  
+A fine-tuned **Ultralytics YOLOv8n** model trained to detect and localize the Asian Palm Civet (*Paradoxurus hermaphroditus*) under challenging 24/7 zoo surveillance conditions (daylight color and night infrared).
 
 ---
 
-## 📌 Executive Summary & Zoological Findings
+## Model Specifications
 
-This project implements an automated, non-invasive 24-hour ethogram monitoring system for the captive Large Indian Civet at Chiang Mai Zoo.
-
-### 📊 24-Hour Behavioral Budget (Ethogram)
-- **Inactive (Sleeping & Resting)**: **12.34 Hours (51.4%)**
-  - Deep Box Sleep (Room 2): `05:55 – 11:06` (5h 11m) & `00:00 – 00:35` (35m)
-  - Sand Floor Naps (Room 3): `01:28 – 01:34` (6m)
-  - Post-feeding Rest: `11:45 – 12:05` (20m) & Evening Rest `16:25 – 17:10` (45m)
-- **Active (Locomotion, Feeding, Drinking, Transit)**: **11.66 Hours (48.6%)**
-  - Afternoon Feeding (Fresh Fruit Tray, Room 3): `15:38:45 – 15:43:30` (4m 45s)
-  - Morning Feeding (Meat, Room 2): `11:07 – 11:45` (38m)
-  - Night Active Exploration & Log Climbing: Peak between `01:00 – 05:00`
-  - Hydration (Water Station, Room 4): `19:40 – 19:43`
+| Parameter | Specification |
+|---|---|
+| **Architecture** | Ultralytics YOLOv8n (Decoupled Anchor-Free Detection Head) |
+| **Model Size** | 3,011,043 parameters (~6.21 MB `.pt` weights) |
+| **Input Resolution** | `640 x 640` pixels |
+| **Inference Latency** | **78.6 ms/frame (12.7 FPS)** on CPU · **16.6 ms/frame (60+ FPS)** on GPU (RTX 3050) |
+| **Operational FPS Requirement** | 2.0 FPS multi-camera sampling (~15% single-thread CPU load) |
+| **Weights Path** | [`models/yolov8n_civet_v3/weights/best.pt`](models/yolov8n_civet_v3/weights/best.pt) |
 
 ---
 
-## 🧠 System Architecture: Decoupled YOLOv8 + Spatial Handoff FSM
+## Performance & Validation Metrics
 
-Instead of naive single-frame multi-class classification (which flickers wildly when an animal pauses during walking), our system decouples **Visual Localization** from **Temporal Zoological Reasoning**:
+Evaluated on hold-out validation frames across all 4 enclosure camera angles (daylight & night IR):
 
-```
-[4 Synchronized CCTV Streams (2 FPS)]
-                 │
-                 ▼
-[YOLOv8n Single-Class Localization (mAP@50 = 86.2%)]
-                 │  (Bounding Box [x1, y1, x2, y2], Centroid, Confidence)
-                 ▼
-[Multi-Camera Spatial Handoff FSM (Rooms 1, 2, 3, 4)]
-                 │  (Spatial ROIs: Food Tray, Tire Bed, Log, Water Basin, Box)
-                 ▼
-[Kinematic Velocity Engine (vt = Δdist / Δt)]
-                 │  (Motion threshold: vt >= 20 px/s)
-                 ▼
-[Temporal Debounce & Zoological 1-Minute Rule]
-                 │  (Smooths momentary pauses < 60s into Active Locomotion)
-                 ▼
-[Daily Behavior Log CSV + 24h Chronogram Telemetry Dashboard]
+| Metric | Score | Note |
+|---|:---:|---|
+| **mAP@50** | **86.2%** | Mean Average Precision at IoU 0.50 |
+| **mAP@50-95** | **74.7%** | Strict COCO-standard Average Precision |
+| **Precision** | **75.0%** | Peaks at **82.5%** under operational threshold ($c \ge 0.40$) |
+| **Recall** | **80.5%** | Exceeds **93.5%** on feeding and resting postures |
+| **Empty Enclosure Specificity** | **100% (0 FP)** | Hard Negative Mining suppresses swaying leaves, sand, and wood grain |
+
+---
+
+## Key Model Improvements (v3)
+
+1. **Hard Negative Mining:** Trained with empty-room background keyframes to completely eliminate false detections on the Room 3 tire bed, hanging rope, potted plants, and Room 2 ramp grain.
+2. **Night Infrared Robustness:** Balanced training distribution between daytime color frames and low-light / monochrome IR frames with high specular eye reflection.
+3. **Decoupled Localization:** Decouples raw visual bounding-box localization from temporal behavior classification, preventing detection flicker during momentary pauses.
+
+---
+
+## Quickstart: Running Inference
+
+### 1. Installation
+```bash
+pip install ultralytics opencv-python numpy
 ```
 
----
+### 2. Python Inference Snippet
+```python
+from ultralytics import YOLO
+import cv2
 
-## 📈 Quantitative Validation Metrics
+# Load the fine-tuned v3 model
+model = YOLO("models/yolov8n_civet_v3/weights/best.pt")
 
-| Metric | Measured Value | Standard / Target | Status |
-|---|:---:|:---:|:---:|
-| **Detection Precision** | **88.2%** | >= 70.0% | ✅ Exceeded (Zero False Positives) |
-| **mAP@50** | **79.6%** | >= 70.0% | ✅ Exceeded |
-| **mAP@50-95** | **63.2%** | >= 50.0% | ✅ Exceeded |
-| **Inference Latency** | **25.0 ms/frame** | <= 50.0 ms | ✅ Real-time Ready (~40 FPS CPU / >60 FPS GPU) |
-| **Parameter Footprint** | **3,005,843 (6.2 MB)** | <= 20 MB | ✅ Lightweight Edge Embedded Ready |
-| **Specificity on Empty Cages** | **100% (0 FP)** | >= 95.0% | ✅ Passed (Negative Background Mining) |
+# Run inference on an image or video frame
+results = model.predict(
+    source="path/to/cctv_frame.jpg",
+    conf=0.35,      # Recommended confidence threshold
+    iou=0.45,       # NMS IoU threshold
+    imgsz=640,
+    verbose=False
+)
 
----
+# Extract detections
+for box in results[0].boxes:
+    x1, y1, x2, y2 = box.xyxy[0].tolist()
+    confidence = float(box.conf[0])
+    print(f"Civet detected: [{x1:.1f}, {y1:.1f}, {x2:.1f}, {y2:.1f}], conf: {confidence:.2f}")
+```
 
-## 📂 Project Directory Structure
-
-```text
-project cmz/
-├── finish/
-│   ├── daily_behavior_log.csv           # 30 Digital Events / Full 24.0 Hours Log
-│   ├── vet_activity_report.png          # Macro Donut + Ethogram Bars + 24h Chronogram
-│   ├── multi_camera_spatial_handoff_fsm.mmd # Master Architecture Flowchart (Mermaid)
-│   ├── civet_yolo_dataset_phase2.zip    # Clean YOLOv8 Dataset Package (227 frames)
-│   ├── comparison_tire_bed_fix.jpg      # Before vs After: 0 FP on Empty Tire
-│   ├── comparison_ramp_fix.jpg          # Before vs After: 0 FP on Empty Ramp
-│   └── demo_clips/
-│       ├── view_demo_clips.html         # Interactive Video Showcase Dashboard (4 Behaviors)
-│       ├── demo_clip_feeding_1538.mp4   # 1. Eating: Afternoon Fruit Feeding (Room 3)
-│       ├── demo_clip_drinking_cam2.mp4  # 2. Drinking: Water Basin Hydration (Room 2)
-│       ├── demo_clip_resting_sand_nap_0130.mp4 # 3. Resting: Night Sand Nap (Room 3)
-│       └── demo_clip_night_patrol_0125.mp4     # 4. Locomotion: Night IR Patrol (Room 3)
-├── models/
-│   └── yolov8n_civet_phase2/
-│       └── weights/best.pt              # Fine-tuned Clean Model Weights (6.2 MB)
-├── dataset_phase2/                      # Clean YOLOv8 Train/Val Annotations & Negative Samples
-├── Image Processing Presentation Phase 2.pptx # Final Presentation Slide Deck (9 Slides)
-└── README.md
+### 3. CLI Command
+```bash
+yolo predict model=models/yolov8n_civet_v3/weights/best.pt source=dataset_phase2/images/val/ conf=0.35 save=True
 ```
 
 ---
 
-## 🚀 Quickstart & Push to GitHub
+## Multi-Camera Behavior Rules
 
-### 1. View Interactive Video Showcase
-Open `finish/demo_clips/view_demo_clips.html` (or on your Desktop) in Google Chrome or Microsoft Edge to inspect all 4 video demonstrations with live AI bounding boxes.
+Behavioral states are resolved by combining YOLOv8 bounding boxes with spatial Regions of Interest (ROIs) and temporal debounce rules across 4 enclosure cameras:
 
-### 2. Push to Your GitHub Repository
-Run the following commands in PowerShell from the project root:
-```powershell
-cd "D:\CMU\4th\1 st\image processing\project cmz"
-git remote add origin https://github.com/Kokokua/Project-CMZ.git
-git push -u origin main
 ```
+[4 CCTV Feeds (2 FPS)] ──> [YOLOv8n Localization] ──> [Spatial ROI Filter] ──> [Temporal Debounce] ──> [Behavior State]
+```
+
+- **Eating:** Bounding box inside Room 3 fruit tray ROI + head dipping, sustained for $\ge 10\text{ s}$.
+- **Drinking:** Muzzle inside Room 4 water basin ROI, sustained for $\ge 3\text{ s}$.
+- **Sleeping (Tire Bed):** Motionless inside Room 3 hanging tire bed for $\ge 60\text{ s}$.
+- **Sleeping (Roost Box):** Managed by **Proof-of-Ingress Finite State Machine (FSM)**. When the civet enters the aperture of the opaque wooden box in Room 2, the FSM latches the `Sleeping` state until egress is detected, solving 100% optical occlusion.
+- **Locomotion:** Centroid displacement $> 15\text{ px/s}$ across open floor areas for $> 3\text{ s}$.
+
+---
+
+## Training Hyperparameters
+
+- **Base Architecture:** `yolov8n.pt` (COCO pre-trained weights)
+- **Input Size:** `640 x 640`
+- **Batch Size:** `8`
+- **Optimizer:** `AdamW` (initial lr = 0.001, final lrf = 0.01)
+- **Loss Gains:** Box = 7.5 (CIoU), Class = 0.5 (BCE), DFL = 1.5
+- **Augmentation:** HSV jitter (h=0.015, s=0.7, v=0.4), Horizontal Flip (0.5), Mosaic (1.0)
+- **Training Dataset:** [`dataset_phase2/data.yaml`](dataset_phase2/data.yaml)
+
+---
+
+## License & Academic Attribution
+- Course: **Advanced Image Processing (261494)**, Chiang Mai University
+- Partner: **Chiang Mai Zoo**

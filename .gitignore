@@ -58,18 +58,15 @@ models/yolov8n_civet_v3/*
 !models/yolov8n_civet_v3/weights/best.pt
 **/last.pt
 
-# Finish: keep only final presentation, 24h CSV log, chart, and html viewer
+# Finish: keep only 24h CSV logs, chart, and benchmark reports (No heavy presentations or videos)
 finish/*
-!finish/Image_Processing_Presentation_Phase2_Final.pptx
 !finish/daily_behavior_log.csv
 !finish/civet_24h_event_log_thai_user_format.csv
 !finish/civet_24h_standardized_event_log.csv
 !finish/vet_activity_report.png
 !finish/comparison_ramp_fix.jpg
 !finish/comparison_tire_bed_fix.jpg
-!finish/demo_clips/
 finish/demo_clips/*
-!finish/demo_clips/view_demo_clips.html
 
 # Scripts: keep only essential model pipeline scripts
 scripts/*
@@ -98,10 +95,20 @@ scripts/*
 !scripts/train_yolov8_civet_v3_fast.py
 !scripts/verify_v3_improvements.py
 !scripts/render_clean_presentation_clips.py
+!scripts/render_all_6_perfect_demo_videos.py
+!scripts/embed_6_showcase_videos_to_pptx.py
+!scripts/test_showcase_deliverables.py
+!scripts/evaluate_4cam_vs_log.py
+!scripts/master_timeline_stitcher.py
+!scripts/run_24h_master_stitcher.py
+!scripts/camera_independent_extractor.py
+!scripts/render_showcase_feeding_and_drinking_1080p.py
+!scripts/render_showcase_locomotion_1080p.py
+!scripts/render_sleeping_box_ingress_demo.py
 
 # Root files
 *.pptx
-!finish/Image_Processing_Presentation_Phase2_Final.pptx
+!finish/civet_behavior_presentation_phase2_final_visuals.pptx
 Untitled Diagram.jpg
 scratch_check_*.jpg
 
@@ -110,7 +117,16 @@ docs/CANVA_*
 docs/22_*
 *.docx
 
+# Temporary debug crops and test inspection frames in root
+check_*.jpg
+crop_*.jpg
+debug_*.jpg
+inspect_*.jpg
+preview_*.jpg
+test_*_stamp.jpg
+
 # OS & Editor generated files
+.agents/
 ~$*
 .DS_Store
 Thumbs.db
