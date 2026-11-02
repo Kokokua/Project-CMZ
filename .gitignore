@@ -108,13 +108,13 @@ scripts/*
 
 # Root files
 *.pptx
-!finish/civet_behavior_presentation_phase2_final_visuals.pptx
 Untitled Diagram.jpg
 scratch_check_*.jpg
 
-# Documents: ignore Canva/speaker notes and docx files
-docs/CANVA_*
-docs/22_*
+# Documents: ignore docs folder, root project specs, and docx files
+docs/
+PROJECT.md
+TEST_*.md
 *.docx
 
 # Temporary debug crops and test inspection frames in root
