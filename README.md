@@ -43,10 +43,22 @@ Evaluated on hold-out validation frames across all 4 enclosure camera angles (da
 
 ### 1. Installation
 ```bash
-pip install ultralytics opencv-python numpy
+git clone https://github.com/Kokokua/Project-CMZ.git
+cd Project-CMZ
+pip install -r requirements.txt
 ```
 
-### 2. Python Inference Snippet
+### 2. Standalone CLI Prediction
+Run the provided `predict.py` script directly on any image, video, or folder:
+```bash
+# Run inference on validation dataset
+python predict.py --source dataset_phase2/images/val/ --conf 0.35
+
+# Run inference on a specific CCTV frame
+python predict.py --source path/to/cctv_frame.jpg
+```
+
+### 3. Python API Snippet
 ```python
 from ultralytics import YOLO
 import cv2
