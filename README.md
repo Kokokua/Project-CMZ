@@ -115,8 +115,3 @@ Behavioral states are resolved by combining YOLOv8 bounding boxes with spatial R
 - **Augmentation:** HSV jitter (h=0.015, s=0.7, v=0.4), Horizontal Flip (0.5), Mosaic (1.0)
 - **Training Dataset:** [`dataset_phase2/data.yaml`](dataset_phase2/data.yaml)
 
----
-
-## License & Academic Attribution
-- Course: **Advanced Image Processing (261494)**, Chiang Mai University
-- Partner: **Chiang Mai Zoo**
