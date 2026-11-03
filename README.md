@@ -1,4 +1,4 @@
-# YOLOv8n Civet Detection & Behavior Model (v3)
+# YOLOv8n Civet Detection & Behavior Model 
 
 A fine-tuned **Ultralytics YOLOv8n** model trained to detect and localize the Asian Palm Civet (*Paradoxurus hermaphroditus*) under challenging 24/7 zoo surveillance conditions (daylight color and night infrared).
 
